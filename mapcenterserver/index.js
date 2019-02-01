@@ -3,8 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const compression = require('compression')
-
-require('dotenv').configure()
+require('dotenv').config()
 
 const {imageRouter} = require('./image')
 
@@ -43,5 +42,5 @@ app.use('/graphql', graphqlHttp({
 }))
 
 app.listen(4000, () => {
-    console.log('server running on port ' + port)
+    console.log('server running')
 })
