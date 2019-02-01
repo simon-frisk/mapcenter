@@ -1,5 +1,5 @@
 {
-  "name": "mapcenterserver",
+  "name": "backend",
   "version": "1.0.0",
   "description": "backend for mapcenter",
   "main": "index.js",
