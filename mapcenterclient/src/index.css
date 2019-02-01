@@ -1,0 +1,9 @@
+body {
+    -webkit-user-select: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.primaryBackground {
+    background: #424444;
+}

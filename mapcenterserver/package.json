@@ -1,0 +1,32 @@
+{
+  "name": "mapcenterserver",
+  "version": "1.0.0",
+  "description": "backend for mapcenter",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "Simon Frisk",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.0.2",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "mime-types": "^2.1.21",
+    "mongoose": "^5.4.0",
+    "multer": "^1.4.1",
+    "sharp": "^0.21.1",
+    "unique-filename": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

@@ -1,0 +1,52 @@
+type Event {
+    _id: ID!
+    name: String!
+    courses(courses: [String!]): [Course!]!
+    overviewMapPath: String
+    adminUser: User!
+    timeCreated: String!
+}
+
+type Course {
+    _id: ID!
+    name: String!
+    userRecordings: [UserRecording!]!
+    mapPath: String!
+    event: Event!
+}
+
+type UserRecording {
+    user: User!
+    gps: [GpsPoint!]
+    startTime: String!
+}
+
+type GpsPoint {
+    x: Float!
+    y: Float!
+    time: Int!
+}
+
+input EventInput {
+    name: String!
+    courses: [CourseInput!]!
+}
+
+input CourseInput {
+    name: String!
+    mapPath: String!
+}
+
+input UserRecordingInput {
+    user: ID!
+    gps: [GpsPointInput!]
+    lat: Float!
+    lon: Float!
+    startTime: String!
+}
+
+input GpsPointInput {
+    x: Float!
+    y: Float!
+    time: Int!
+}
