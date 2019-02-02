@@ -83,7 +83,7 @@ module.exports = {
         const event = await Event.findById(course.event)
         if(!event._doc.overviewMapPath) {
             const overviewMapPath = await generateOverviewMap(userRecordingInput.lat, userRecordingInput.lon)
-            await event.set({overviewMapPath: 'images/' + overviewMapPath})
+            await event.set({overviewMapPath: overviewMapPath})
             await event.save()
         }
         return true

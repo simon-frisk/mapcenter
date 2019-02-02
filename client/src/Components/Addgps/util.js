@@ -1,7 +1,5 @@
 export function convertRawGps(rawGps) {
-    const {minLat, maxLat, minLon, maxLon} = rawGps.reduce((previous, current) => {
-        if(current.lon > previous.maxLon)
-            previous.maxLon = current.lon
+    const {minLat, maxLat, minLon} = rawGps.reduce((previous, current) => {
         if(current.lon < previous.minLon)
             previous.minLon = current.lon
         if(current.lat < previous.minLat)
@@ -9,19 +7,18 @@ export function convertRawGps(rawGps) {
         if(current.lat > previous.maxLat)
             previous.maxLat = current.lat
         return previous
-    }, {minLat: 90, maxLat: -90, minLon: 180, maxLon: -180})
-
-    const width = maxLon - minLon
-    const height = maxLat - minLat
-    const scale = 800 / width
-
+    }, {minLat: 90, maxLat: -90, minLon: 180})
+    
     const startTime = new Date(rawGps[0].time).getTime()
+    const lonLength = Math.cos(minLat * Math.PI / 180) * 111
+    const height = maxLat - minLat
 
     const gps = rawGps.map(point => ({
         time: Math.round((new Date(point.time).getTime() - startTime) / 1000),
-        x: (point.lon - minLon) * scale + 150,
-        y: (point.lat - minLat - height / 2) * -scale + height * scale / 2 + 150
+        y: (-point.lat * 111 + minLat * 111 + height * 111) * 300,
+        x: (point.lon * lonLength - minLon * lonLength) * 300
     }))
+
     return gps
 }
 

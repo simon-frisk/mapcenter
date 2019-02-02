@@ -106,7 +106,6 @@ export default props => {
             x: userCoord.x - userInput.x,
             y: userCoord.y - userInput.y
         }
-        console.log(move)
         setUserInput({
             ...userInput,
             ...userCoord,

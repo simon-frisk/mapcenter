@@ -23,7 +23,7 @@ export default function({ params, onGps }) {
     const [ auth, setAuth ] = useState()
     const [ activities, setActivities ] = useState()
     const [ page, setPage ] = useState(1)
-    const [ loading, setLoading ] = useState(false)
+    const [ loading, setLoading ] = useState(true)
 
     function downloadStravaGps(activityIndex) {
         setLoading(true)
@@ -50,6 +50,7 @@ export default function({ params, onGps }) {
             })
                 .then(res => res.json())
                 .then(setAuth)
+        else setLoading(false)
     }, [])
 
     useEffect(() => {
@@ -73,6 +74,8 @@ export default function({ params, onGps }) {
         }
     }, [auth, page])
 
+    if(loading && !activities) return <Loading />
+    
     if(activities) {
         return (
             <ActivitiesTable
