@@ -13,11 +13,16 @@ export function convertRawGps(rawGps) {
     const lonLength = Math.cos(minLat * Math.PI / 180) * 111
     const height = maxLat - minLat
 
-    const gps = rawGps.map(point => ({
-        time: Math.round((new Date(point.time).getTime() - startTime) / 1000),
-        y: (-point.lat * 111 + minLat * 111 + height * 111) * 300,
-        x: (point.lon * lonLength - minLon * lonLength) * 300
-    }))
+    let filterRate = Math.round(rawGps.length / 700)
+    if(filterRate < 1) filterRate = 1
+
+    const gps = rawGps
+        .map(point => ({
+            time: Math.round((new Date(point.time).getTime() - startTime) / 1000),
+            y: (-point.lat * 111 + minLat * 111 + height * 111) * 300,
+            x: (point.lon * lonLength - minLon * lonLength) * 300
+        }))
+        .filter((_, index) => index % filterRate === 0)
 
     return gps
 }

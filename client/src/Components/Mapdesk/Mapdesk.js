@@ -68,7 +68,7 @@ export default props => {
         if(target) {
             if(fixPoints.length > 1)
                 fixPoints.length = 0
-            if(fixPoints[0] && fixPoints[0].gpsIndex === target.gpsIndex && Math.abs(target.index - fixPoints[0].index) < 50)
+            if(fixPoints[0] && fixPoints[0].gpsIndex === target.gpsIndex && Math.abs(target.index - fixPoints[0].index) < 20)
                 setEditingFixPoint(fixPoints.pop())
             else setEditingFixPoint({ gpsIndex: target.gpsIndex, index: target.index })
         }
@@ -111,7 +111,7 @@ export default props => {
         else if(props.setGpsGroup && editingFixPoint) {
             let newGpsData = gpsDrawData
             if(fixPoints.length === 0)
-                newGpsData = moveGps(gpsDrawData, move, mapGeometry, map)
+                newGpsData = moveGps(gpsDrawData, move)
             else if(fixPoints.length === 1)
                 newGpsData = rotateArountPoint(gpsDrawData, editingFixPoint, fixPoints, userInput, move)
 
@@ -120,11 +120,11 @@ export default props => {
     }
 
     function zoomIn() {
-        zoomInHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawData)
+        zoomInHandler(mapGeometry, canvasRef.current, windowSize, map, gpsDrawData, setGpsDrawData)
     }
 
     function zoomOut() {
-        zoomOutHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawData)
+        zoomOutHandler(mapGeometry, canvasRef.current, windowSize, map, gpsDrawData, setGpsDrawData)
     }
 
     if(!map || !gpsDrawData)

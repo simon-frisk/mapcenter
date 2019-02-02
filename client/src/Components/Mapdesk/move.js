@@ -14,12 +14,12 @@ export function rotateArountPoint(gpsDrawData, editingFixPoint, fixPoints, userI
     })
 }
 
-export function moveGps(gpsDrawData, move, mapGeometry, map) {
+export function moveGps(gpsDrawData, move) {
     return gpsDrawData.map(gps => {
         return gps.map(point => ({
             ...point,
-            x: point.x + move.x * (mapGeometry.w / map.width),
-            y: point.y + move.y * (mapGeometry.w / map.width)
+            x: point.x + move.x,
+            y: point.y + move.y
         }))
     })
 }

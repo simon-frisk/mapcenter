@@ -31,10 +31,7 @@ function AddGps({ queryError, mutationError, event, mutationLoading, mutate, cou
     const [startTime, setStartTime] = useState()
     const [error, setError] = useState()
 
-    function useRawGps(unfilterRawGps) {
-        let filterRate = Math.round(unfilterRawGps.length / 700)
-        if(filterRate < 1) filterRate = 1
-        const rawGps = unfilterRawGps.filter((_, index) => index % filterRate === 0)
+    function useRawGps(rawGps) {
         setFirstCoord({ lat: Number(rawGps[0].lat), lon: Number(rawGps[0].lon) })
         setStartTime(rawGps[0].time)
         setGps(convertRawGps(rawGps))
