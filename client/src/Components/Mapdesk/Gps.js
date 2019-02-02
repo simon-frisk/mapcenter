@@ -1,11 +1,22 @@
 export function calculateGpsMapCoords(gpsDrawData, mapGeometry, map) {
-    const scale = map.width / mapGeometry.w
+    const scale = mapGeometry.w / map.width
     return gpsDrawData.map(gps => {
         return gps.map(point => ({
                 ...point,
                 x: (point.x - mapGeometry.x) / scale,
                 y: (point.y - mapGeometry.y) / scale
             }))
+    })
+}
+
+export function calculateDrawCoords(gpsData, mapGeometry, map) {
+    const scale = mapGeometry.w / map.width
+    return gpsData.map(gps => {
+        return gps.map(point => ({
+            ...point,
+            x: point.x * scale + mapGeometry.x,
+            y: point.y * scale + mapGeometry.y
+        }))
     })
 }
 

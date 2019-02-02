@@ -8,7 +8,8 @@ import {
     zoomOutHandler 
 } from './Map'
 import {
-    calculateGpsMapCoords, 
+    calculateGpsMapCoords,
+    calculateDrawCoords,
     calculatePointsTriangleSides, 
     closestGpsPoint, 
     getMoveGpsRelevantPoints, 
@@ -44,20 +45,11 @@ export default props => {
             setMapGeometry({x: 0, y: 0, w: img.width, h: img.height})
             setMap(img)
         }
-    }, [])
+    }, [props.mapFile])
 
     useEffect(() => {
-        if(map) {
-            const scale = map.width / mapGeometry.w
-            const gpsDrawData = props.gpsGroup.map(gps => {
-                return gps.map(point => ({
-                    ...point,
-                    x: (point.x + mapGeometry.x) * scale,
-                    y: (point.y + mapGeometry.y) * scale
-                }))
-            })
-            setGpsDrawData(gpsDrawData)
-        }
+        if(map)
+            setGpsDrawData(calculateDrawCoords(props.gpsGroup, mapGeometry, map))
     }, [props.gpsGroup, map])
 
     useEffect(() => {
@@ -111,9 +103,10 @@ export default props => {
             ...userCoord,
             target: userInput.down ? userInput.target : closestGpsPoint(gpsDrawData, userCoord)
         })
-        if(!editingFixPoint && userInput.down) {
+
+        if(!editingFixPoint && userInput.down)
             moveMap(mapGeometry, move, gpsDrawData, canvasRef)
-        }
+
         else if(props.setGpsGroup && editingFixPoint) {
             let newGpsData = gpsDrawData
             if(fixPoints.length > 1)
@@ -122,8 +115,8 @@ export default props => {
                 newGpsData = gpsDrawData.map(gps => {
                     return gps.map(point => ({
                         ...point,
-                        x: point.x + move.x,
-                        y: point.y + move.y
+                        x: point.x + move.x * (mapGeometry.w / map.width),
+                        y: point.y + move.y * (mapGeometry.w / map.width)
                     }))
                 })
             }

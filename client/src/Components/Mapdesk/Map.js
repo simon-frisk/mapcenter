@@ -76,10 +76,11 @@ export function moveMap(mapGeometry, move, gpsDrawData, canvasRef) {
 }
 
 export function zoomInHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawData) {
+    console.log('in')
     if(mapGeometry.w / canvasRef.current.width > 10 || mapGeometry.h / canvasRef.current.height > 10) return
 
-    mapGeometry.w *= 1.07
-    mapGeometry.h *= 1.07
+    mapGeometry.w *= 1.1
+    mapGeometry.h *= 1.1
 
     setGpsDrawData(gpsDrawData.map(gps => {
         return gps.map(point => {
@@ -87,19 +88,20 @@ export function zoomInHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawDat
             const yDistFromMapOrigin = point.y - mapGeometry.y
             return {
                 ...point,
-                x: xDistFromMapOrigin * 1.07 + mapGeometry.x,
-                y: yDistFromMapOrigin * 1.07 + mapGeometry.y
+                x: xDistFromMapOrigin * 1.1 + mapGeometry.x,
+                y: yDistFromMapOrigin * 1.1 + mapGeometry.y
             }
         })
     }))
 }
 
 export function zoomOutHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawData) {
-    if(mapGeometry.w / 1.07 < canvasRef.current.width) return
-    if(mapGeometry.h / 1.07 < canvasRef.current.height) return
+    console.log('out')
+    if(mapGeometry.w / 1.1 < canvasRef.current.width) return
+    if(mapGeometry.h / 1.1 < canvasRef.current.height) return
 
-    mapGeometry.w /= 1.07
-    mapGeometry.h /= 1.07
+    mapGeometry.w /= 1.1
+    mapGeometry.h /= 1.1
 
     setGpsDrawData(gpsDrawData.map(gps => {
         return gps.map(point => {
@@ -107,8 +109,8 @@ export function zoomOutHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawDa
             const yDistFromMapOrigin = point.y - mapGeometry.y
             return {
                 ...point,
-                x: xDistFromMapOrigin / 1.07 + mapGeometry.x,
-                y: yDistFromMapOrigin / 1.07 + mapGeometry.y
+                x: xDistFromMapOrigin / 1.1 + mapGeometry.x,
+                y: yDistFromMapOrigin / 1.1 + mapGeometry.y
             }
         })
     }))

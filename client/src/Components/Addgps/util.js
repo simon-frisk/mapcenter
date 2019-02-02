@@ -34,8 +34,8 @@ export async function readGpx(gpx) {
     const trkPoints = gpxDoc.getElementsByTagName('trkpt')
     return Array.from(trkPoints).map(trkPoint => {
         return {
-            lon: trkPoint.getAttribute('lon'),
-            lat: trkPoint.getAttribute('lat'),
+            lon: Number(trkPoint.getAttribute('lon')),
+            lat: Number(trkPoint.getAttribute('lat')),
             time: trkPoint.getElementsByTagName('time')[0].childNodes[0].nodeValue
         }
     })

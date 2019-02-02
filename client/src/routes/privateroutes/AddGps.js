@@ -56,7 +56,7 @@ function AddGps({ queryError, mutationError, event, mutationLoading, mutate, cou
                 lat: point[0],
                 lon: point[1],
                 time: new Date(new Date(activity.start_date_local).getTime() + data.time.data[index] * 1000).toISOString()
-            }))
+            })).filter((_, index) => index % 5 === 0)
             useRawGps(rawGps)
         })
         reader.readAsText(blob)
