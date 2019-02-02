@@ -1,5 +1,9 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { genColor, cosineRule, Desk, DeskButtons, Canvas } from './Util'
+import { genColor, Desk, DeskButtons, Canvas } from './Util'
+import IconButton from '@material-ui/core/IconButton'
+import ZoomIn from '@material-ui/icons/ZoomIn'
+import ZoomOut from '@material-ui/icons/ZoomOut'
+import Loading from '../Presentation/Loading'
 import { 
     useViewportSizeAndPreventCanvasScrolling,
     getUserinputPosition, 
@@ -10,17 +14,10 @@ import {
 import {
     calculateGpsMapCoords,
     calculateDrawCoords,
-    calculatePointsTriangleSides, 
-    closestGpsPoint, 
-    getMoveGpsRelevantPoints, 
-    getRotationDirection, 
-    manipulatePoint,
+    closestGpsPoint,
     drawGpsGroup
 } from './Gps'
-import IconButton from '@material-ui/core/IconButton'
-import ZoomIn from '@material-ui/icons/ZoomIn'
-import ZoomOut from '@material-ui/icons/ZoomOut'
-import Loading from '../Presentation/Loading'
+import { rotateArountPoint, moveGps } from './move'
 
 export default props => {
     const canvasRef = createRef()
@@ -62,14 +59,19 @@ export default props => {
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
         const { x, y, w, h } = mapGeometry
         ctx.drawImage(map, x, y, w, h)
-        drawGpsGroup(gpsDrawData, ctx, userInput, colorGenerator, w)
+        drawGpsGroup(gpsDrawData, ctx, userInput, colorGenerator)
     }
 
     function onDown(e) {
         const userCoord = getUserinputPosition(canvasRef.current, e)
         const target = closestGpsPoint(gpsDrawData, userCoord)
-        if(target)
-            setEditingFixPoint({ gpsIndex: target.gpsIndex, index: target.index })
+        if(target) {
+            if(fixPoints.length > 1)
+                fixPoints.length = 0
+            if(fixPoints[0] && fixPoints[0].gpsIndex === target.gpsIndex && Math.abs(target.index - fixPoints[0].index) < 50)
+                setEditingFixPoint(fixPoints.pop())
+            else setEditingFixPoint({ gpsIndex: target.gpsIndex, index: target.index })
+        }
         setUserInput({
             ...userInput,
             ...userCoord,
@@ -92,7 +94,6 @@ export default props => {
     
     function onMove(event) {
         if(event.nativeEvent.type === 'touchmove' && event.touches.length === 0) return
-
         const userCoord = getUserinputPosition(canvasRef.current, event)
         const move = {
             x: userCoord.x - userInput.x,
@@ -109,32 +110,11 @@ export default props => {
 
         else if(props.setGpsGroup && editingFixPoint) {
             let newGpsData = gpsDrawData
-            if(fixPoints.length > 1)
-                fixPoints.length = 0
-            if(fixPoints.length === 0) {
-                newGpsData = gpsDrawData.map(gps => {
-                    return gps.map(point => ({
-                        ...point,
-                        x: point.x + move.x * (mapGeometry.w / map.width),
-                        y: point.y + move.y * (mapGeometry.w / map.width)
-                    }))
-                })
-            }
-            else if(fixPoints.length === 1) {
-                const { fixPoint, oldDragPoint, newDragPoint } = getMoveGpsRelevantPoints({
-                    gps: gpsDrawData[userInput.target.gpsIndex],
-                    target: editingFixPoint,
-                    fixPoint: fixPoints[0],
-                    move
-                }) //bug here?
-                const { fixToOldDistance, fixToNewDistance, oldToNewDistance } = calculatePointsTriangleSides(fixPoint, oldDragPoint, newDragPoint)
-                const scale = fixToNewDistance / fixToOldDistance
-                const angleOldToNew = cosineRule(fixToOldDistance, fixToNewDistance, oldToNewDistance)
-                const rotationAngle = angleOldToNew * getRotationDirection(fixPoint, oldDragPoint, newDragPoint)
-                newGpsData = gpsDrawData.map(gps => {
-                    return gps.map(point => manipulatePoint(point, fixPoint, scale, rotationAngle))
-                })
-            }
+            if(fixPoints.length === 0)
+                newGpsData = moveGps(gpsDrawData, move, mapGeometry, map)
+            else if(fixPoints.length === 1)
+                newGpsData = rotateArountPoint(gpsDrawData, editingFixPoint, fixPoints, userInput, move)
+
             props.setGpsGroup(calculateGpsMapCoords(newGpsData, mapGeometry, map))
         }
     }

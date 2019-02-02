@@ -16,13 +16,6 @@ export function* genColor() {
     }
 }
 
-export function cosineRule(closeSide1, closeSide2, adjacentSide) {
-    const numerator = adjacentSide ** 2 - closeSide1 ** 2 - closeSide2 ** 2
-    const denominator = -2 * closeSide1 * closeSide2
-    const quotas = numerator / denominator
-    return Math.acos(quotas)
-}
-
 export const DeskButtons = styled.div`
     position: absolute;
     z-index: 10;

@@ -31,7 +31,10 @@ function AddGps({ queryError, mutationError, event, mutationLoading, mutate, cou
     const [startTime, setStartTime] = useState()
     const [error, setError] = useState()
 
-    function useRawGps(rawGps) {
+    function useRawGps(unfilterRawGps) {
+        let filterRate = Math.round(unfilterRawGps.length / 700)
+        if(filterRate < 1) filterRate = 1
+        const rawGps = unfilterRawGps.filter((_, index) => index % filterRate === 0)
         setFirstCoord({ lat: Number(rawGps[0].lat), lon: Number(rawGps[0].lon) })
         setStartTime(rawGps[0].time)
         setGps(convertRawGps(rawGps))
@@ -56,7 +59,7 @@ function AddGps({ queryError, mutationError, event, mutationLoading, mutate, cou
                 lat: point[0],
                 lon: point[1],
                 time: new Date(new Date(activity.start_date_local).getTime() + data.time.data[index] * 1000).toISOString()
-            })).filter((_, index) => index % 5 === 0)
+            }))
             useRawGps(rawGps)
         })
         reader.readAsText(blob)

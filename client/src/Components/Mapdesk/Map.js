@@ -35,7 +35,8 @@ export function useViewportSizeAndPreventCanvasScrolling(canvasRef) {
 
 export function getUserinputPosition(canvas, event) {
     let isTouch = false
-    if(event.nativeEvent.type === 'touchstart' || event.nativeEvent.type === 'touchmove' || event.nativeEvent.type === 'touchend')
+    const type = event.nativeEvent.type
+    if(type === 'touchstart' || type === 'touchmove' || type === 'touchend')
         isTouch = true
     const positionObject = isTouch ? event.touches[0] : event
     const rect = canvas.getBoundingClientRect()
@@ -76,8 +77,8 @@ export function moveMap(mapGeometry, move, gpsDrawData, canvasRef) {
 }
 
 export function zoomInHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawData) {
-    console.log('in')
-    if(mapGeometry.w / canvasRef.current.width > 10 || mapGeometry.h / canvasRef.current.height > 10) return
+    const canvas = canvasRef.current
+    if(mapGeometry.w / canvas.width > 10 || mapGeometry.h / canvas.height > 10) return
 
     mapGeometry.w *= 1.1
     mapGeometry.h *= 1.1
@@ -96,7 +97,6 @@ export function zoomInHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawDat
 }
 
 export function zoomOutHandler(mapGeometry, canvasRef, gpsDrawData, setGpsDrawData) {
-    console.log('out')
     if(mapGeometry.w / 1.1 < canvasRef.current.width) return
     if(mapGeometry.h / 1.1 < canvasRef.current.height) return
 
