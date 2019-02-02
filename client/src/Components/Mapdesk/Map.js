@@ -76,37 +76,20 @@ export function moveMap(mapGeometry, move, gpsDrawData, canvasRef) {
     }
 }
 
-export function zoomInHandler(mapGeometry, canvas, windowSize, map, gpsDrawData, setGpsDrawData) {
+export function zoomInHandler(mapGeometry, setMapGeometry, canvas, windowSize, gpsDrawData, setGpsDrawData) {
     if(mapGeometry.w / canvas.width > 10 || mapGeometry.h / canvas.height > 10) return
-
-    mapGeometry.w *= 1.1
-    mapGeometry.h *= 1.1
-    
-    const VPCenterX = (windowSize.w / 2 * mapGeometry.w / map.width - mapGeometry.x) / 2
-    const VPCenterY = (windowSize.h / 2 * mapGeometry.h / map.height - mapGeometry.y) / 2
-    console.log(VPCenterX)
-    mapGeometry.x -= VPCenterX * 0.05
-    mapGeometry.y -= VPCenterY * 0.05
-
-    setGpsDrawData(gpsDrawData.map(gps => {
-        return gps.map(point => {
-            const xDistFromMapOrigin = point.x - mapGeometry.x
-            const yDistFromMapOrigin = point.y - mapGeometry.y
-            return {
-                ...point,
-                x: xDistFromMapOrigin * 1.1 + mapGeometry.x,
-                y: yDistFromMapOrigin * 1.1 + mapGeometry.y
-            }
-        })
-    }))
+    zoomHandler(windowSize, mapGeometry, setMapGeometry, gpsDrawData, setGpsDrawData, 1.15)
 }
 
-export function zoomOutHandler(mapGeometry, canvas, windowSize, map, gpsDrawData, setGpsDrawData) {
-    if(mapGeometry.w / 1.1 < canvas.width) return
-    if(mapGeometry.h / 1.1 < canvas.height) return
+export function zoomOutHandler(mapGeometry, setMapGeometry, canvas, windowSize, gpsDrawData, setGpsDrawData) {
+    if(mapGeometry.w * 0.85 < canvas.width) return
+    if(mapGeometry.h * 0.85 < canvas.height) return
+    zoomHandler(windowSize, mapGeometry, setMapGeometry, gpsDrawData, setGpsDrawData, 0.85)
+}
 
-    mapGeometry.w /= 1.1
-    mapGeometry.h /= 1.1
+function zoomHandler(windowSize, mapGeometry, setMapGeometry, gpsDrawData, setGpsDrawData, zoom) {
+    const moveX = (windowSize.w / 2 - mapGeometry.x) * (zoom - 1)
+    const moveY = (windowSize.h / 2 - mapGeometry.y) * (zoom - 1)
 
     setGpsDrawData(gpsDrawData.map(gps => {
         return gps.map(point => {
@@ -114,9 +97,16 @@ export function zoomOutHandler(mapGeometry, canvas, windowSize, map, gpsDrawData
             const yDistFromMapOrigin = point.y - mapGeometry.y
             return {
                 ...point,
-                x: xDistFromMapOrigin / 1.1 + mapGeometry.x,
-                y: yDistFromMapOrigin / 1.1 + mapGeometry.y
+                x: xDistFromMapOrigin * zoom + mapGeometry.x - moveX,
+                y: yDistFromMapOrigin * zoom + mapGeometry.y - moveY
             }
         })
     }))
+    setMapGeometry({
+        ...mapGeometry,
+        x: mapGeometry.x - moveX,
+        y: mapGeometry.y - moveY,
+        w: mapGeometry.w * zoom,
+        h: mapGeometry.h * zoom
+    })
 }

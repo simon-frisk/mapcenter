@@ -43,7 +43,7 @@ export function drawGpsGroup(gpsGroup, ctx, userInput, colorGenerator, width) {
     gpsGroup.forEach((gps, index) => {
         ctx.beginPath()
         const isSelected = userInput.target && userInput.target.gpsIndex === index
-        ctx.lineWidth = isSelected ? 7 : 3
+        ctx.lineWidth = isSelected ? 7 : 4
         ctx.strokeStyle = colorGenerator.next().value
         
         ctx.moveTo(gps[0].x, gps[0].y)

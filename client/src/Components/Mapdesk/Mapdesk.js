@@ -39,7 +39,13 @@ export default props => {
         const img = new Image()
         img.src = process.env.REACT_APP_API_URL + props.mapFile
         img.onload = () => {
-            setMapGeometry({x: 0, y: 0, w: img.width, h: img.height})
+            const heightRatio = img.height / windowSize.h
+            const widthRatio = img.width / windowSize.w
+            let w = widthRatio < heightRatio ? windowSize.w : img.width / heightRatio
+            const h = widthRatio > heightRatio ? windowSize.h : img.height / widthRatio
+            const x = -(w - windowSize.w) / 2
+            const y = -(h - windowSize.h) / 2
+            setMapGeometry({x, y, w, h})
             setMap(img)
         }
     }, [props.mapFile])
@@ -120,11 +126,11 @@ export default props => {
     }
 
     function zoomIn() {
-        zoomInHandler(mapGeometry, canvasRef.current, windowSize, map, gpsDrawData, setGpsDrawData)
+        zoomInHandler(mapGeometry, setMapGeometry, canvasRef.current, windowSize, gpsDrawData, setGpsDrawData)
     }
 
     function zoomOut() {
-        zoomOutHandler(mapGeometry, canvasRef.current, windowSize, map, gpsDrawData, setGpsDrawData)
+        zoomOutHandler(mapGeometry, setMapGeometry, canvasRef.current, windowSize, gpsDrawData,setGpsDrawData)
     }
 
     if(!map || !gpsDrawData)
