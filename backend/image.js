@@ -1,6 +1,6 @@
 const mimeTypes = require('mime-types')
 const uniqueFilename = require('unique-filename')
-const sharp = require('sharp')
+const Jimp = require('jimp')
 const axios = require('axios')
 const multer = require('multer')
 const express = require('express')
@@ -49,17 +49,18 @@ image.put('/map', (req, res) => {
 })
 
 function generateThumbnail(file) {
-    const image = sharp(file.path)
-    return image.metadata()
-        .then(metadata => {
-            const thumbWidth = metadata.width > 400 ? 400 : metadata.width
-            const thumbHeight = metadata.height > 250 ? 250 : metadata.height
-            const thumbX = Math.floor((metadata.width - thumbWidth) / 2)
-            const thumbY = Math.floor((metadata.height - thumbHeight) / 2)
-            
+    return Jimp.read(file.path)
+        .then(image => {
+            const width = image.bitmap.width
+            const height = image.bitmap.height
+            const thumbWidth = width > 400 ? 400 : width
+            const thumbHeight = height > 250 ? 250 : height
+            const thumbX = Math.floor((width - thumbWidth) / 2)
+            const thumbY = Math.floor((height - thumbHeight) / 2)
+
             return image
-                .extract({left: thumbX, top: thumbY, width: thumbWidth, height: thumbHeight})
-                .toFile('./images/thumb_' + file.filename)
+                .crop(thumbX, thumbY, thumbWidth, thumbHeight)
+                .writeAsync('./images/thumb_' + file.filename)
         })
 }
 

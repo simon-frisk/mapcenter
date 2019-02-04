@@ -1,7 +1,14 @@
-FROM node:8
-WORKDIR /backend
-COPY package*.json ./
+FROM alpine
+RUN apk add --update \
+  --repository http://dl-3.alpinelinux.org/alpine/edge/testing \
+  vips-tools \
+  && rm -rf /var/cache/apk/*
+
+FROM node:alpine
+WORKDIR /usr/app
+
+COPY ./package*.json ./
 RUN npm install
-COPY . .
-EXPOSE 4000
+COPY ./ ./
+
 CMD ["npm", "start"]

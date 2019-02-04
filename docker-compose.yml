@@ -1,10 +1,10 @@
 version: '3'
 services:
   frontend:
-    build: './client/'
+    build: ./client
     restart: always
     ports: 
-      - '3000:5000'
+      - '3000:3000'
   backend:
     build: './backend/'
     restart: always
@@ -12,6 +12,5 @@ services:
       - '4000:4000'
   database:
     image: mongo
-    ports: 
-      - '27017:27017'
+    restart: always
     
