@@ -25,6 +25,10 @@ services:
     depends_on:
       - database
     restart: always
+    volumes:
+      - /images
   database:
     image: mongo
     restart: always
+    volumes:
+      - /data/db
