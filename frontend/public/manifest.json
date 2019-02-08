@@ -1,15 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
+  "short_name": "Mapcenter",
+  "name": "Mapcenter",
   "start_url": ".",
+  "description": "Mapcenter is a social network connecting orienteering. It is used for analysis and sharing orienteering adventures.",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#FFC107",
+  "background_color": "#424444"
 }

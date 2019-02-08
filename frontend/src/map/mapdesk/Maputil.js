@@ -18,6 +18,7 @@ export function* genColor() {
 
 export const DeskButtons = styled.div`
     position: absolute;
+    top: -3px;
     z-index: 10;
     background: #424444;
     opacity: 0.94;
