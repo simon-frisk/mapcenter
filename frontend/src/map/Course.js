@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Context from '../../Context'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import Typography from '@material-ui/core/Typography'
@@ -9,10 +8,11 @@ import IconButton from '@material-ui/core/IconButton'
 import BackArrow from '@material-ui/icons/ArrowBack'
 import Play from '@material-ui/icons/PlayCircleFilled'
 import Pause from '@material-ui/icons/PauseCircleFilled'
-import Loading from '../../Components/Presentation/Loading'
-import Mapdesk from '../../Components/Mapdesk/Mapdesk'
-import UserTable from '../../Components/Containers/usertable'
-import { TopInfo } from '../../Components/Layout/TopInfo'
+import Context from '../super/Context'
+import Loading from '../view/Loading'
+import Mapdesk from './mapdesk/Mapdesk'
+import UserTable from './view/usertable'
+import { TopInfo } from '../layout/TopInfo'
 
 const QUERY = gql`
     query GetCourse($event: ID! $course: ID!) {

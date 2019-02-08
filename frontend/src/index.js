@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import './index.css'
-import * as serviceWorker from './serviceWorker'
+import App from './super/App'
+import './super/index.css'
+import * as serviceWorker from './super/serviceWorker'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 

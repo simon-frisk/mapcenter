@@ -1,11 +1,11 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import Card from '../../Components/Presentation/Card'
-import Layout from '../../Components/Layout/Layout'
-import Loading from '../../Components/Presentation/Loading'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import Card from '../view/Card'
+import Loading from '../view/Loading'
+import Layout from '../layout/Layout'
 
 const RECENTEVENTSQUERY = gql`
     {

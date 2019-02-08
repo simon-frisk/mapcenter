@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import Hero from '../../Components/Presentation/Hero'
-import background from '../../assets/bg.png'
-import stravacompatible from '../../assets/stravacompatible.png'
+import Hero from '../view/Hero'
+import background from './bg.png'
+import stravacompatible from './stravacompatible.png'
 
 const styles = {
     heroText: {

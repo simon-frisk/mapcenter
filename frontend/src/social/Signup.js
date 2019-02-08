@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react'
-import Context from '../../Context'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import CardActions from '@material-ui/core/CardActions'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Hero from '../../Components/Presentation/Hero'
-import background from '../../assets/bg.png'
 import gql from 'graphql-tag'
 import { Mutation } from 'react-apollo'
+import Context from '../super/Context'
+import Hero from '../view/Hero'
+import background from './bg.png'
 
 const MUTATION = gql`
     mutation SignUp($userInput: UserInput!) {
@@ -56,21 +56,25 @@ export default function() {
             <Card>
                 <Mutation mutation={MUTATION} variables={{ userInput: {name, email, password}}}>
                     {(signUp, { called, loading, data, error: mutationError }) => {
-                        if(called && !loading)
+                        if(called && !loading && !mutationError)
                             context.setAuthUser(data.createUser)
                         return (
                             <form onSubmit={e => onSubmit(signUp, e)}>
                                 <CardContent>
                                     <Typography variant='h5'>Sign up</Typography>
-                                    <TextField label='email' fullWidth value={email} onChange={e => {
-                                        console.log('baby')
-                                        setEmail(e.target.value)
-                                    }} />
+                                    <TextField 
+                                        label='email' 
+                                        fullWidth 
+                                        value={email} 
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
                                     <TextField label='name' fullWidth value={name} onChange={e => setName(e.target.value)} />
                                     <TextField label='password' type='password' fullWidth value={password} onChange={e => setPassword(e.target.value)} />
                                     <TextField label='confirm password' type='password' fullWidth value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-                                    {(error || mutationError) &&
-                                        <Typography color='error' variant='subtitle2'>      {error || mutationError}
+                                    {
+                                        (error || mutationError) &&
+                                        <Typography color='error' variant='subtitle2'>      
+                                            {error || 'could not sign up'}
                                         </Typography>
                                     }
                                 </CardContent>

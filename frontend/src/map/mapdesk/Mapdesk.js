@@ -1,9 +1,9 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { genColor, Desk, DeskButtons, Canvas } from './Util'
+import { genColor, Desk, DeskButtons, Canvas } from './Maputil'
 import IconButton from '@material-ui/core/IconButton'
 import ZoomIn from '@material-ui/icons/ZoomIn'
 import ZoomOut from '@material-ui/icons/ZoomOut'
-import Loading from '../Presentation/Loading'
+import Loading from '../../view/Loading'
 import { 
     useViewportSizeAndPreventCanvasScrolling,
     getUserinputPosition, 

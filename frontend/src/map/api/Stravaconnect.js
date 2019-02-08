@@ -6,10 +6,10 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import BackArraw from '@material-ui/icons/ArrowBackIos'
 import ForwardArrow from '@material-ui/icons/ArrowForwardIos'
-import Float from '../Presentation/Float'
-import Loading from '../Presentation/Loading'
-import StravaPowered from '../../assets/stravapowered.png'
-import stravaconnect from '../../assets/stravaconnect.png'
+import Float from '../../view/Float'
+import Loading from '../../view/Loading'
+import StravaPowered from '../view/stravapowered.png'
+import stravaconnect from '../view/stravaconnect.png'
 
 const listActivitiesUrl = page => `https://www.strava.com/api/v3/athlete/activities?page=${page}`
 

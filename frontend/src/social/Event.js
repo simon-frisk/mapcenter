@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Context from '../../Context'
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import styled from 'styled-components'
-import Layout from '../../Components/Layout/Layout'
-import Loading from '../../Components/Presentation/Loading'
-import MyCard from '../../Components/Presentation/Card'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import styled from 'styled-components'
+import Context from '../super/Context'
+import Loading from '../view/Loading'
+import Layout from '../layout/Layout'
+import MyCard from '../view/Card'
 
 const QUERY = gql`
     query GetEvent($id: ID!){
