@@ -14,13 +14,15 @@ exports.getAllFileNames = folder => {
 }
 
 exports.connectToDb = () => {
-    mongoose.connect('database', {
+    mongoose.connect('mongodb://database:27017/mapcenter', {
         useNewUrlParser: true,
+        reconnectTries: Number.MAX_VALUE,
         reconnectInterval: 1000
     })
-    const db = mongoose.connection
-    db.on('error', console.error.bind(console, 'connection error: '))
-    db.once('open', () => console.log('connected to database'))
+        .then(
+            () => console.log('connected to database'),
+            err => { throw err }
+        )
 }
 
 exports.checkToken = (req, _, next) => {

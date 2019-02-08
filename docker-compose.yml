@@ -6,7 +6,11 @@ services:
       context: ./nginx
     restart: always
     ports:
-      - 5000:80
+      - 80:80
+    depends_on:
+      - frontend
+      - database
+      - backend
   frontend:
     build: 
       dockerfile: Dockerfile
@@ -16,11 +20,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
-    restart: always
     links:
       - database
+    depends_on:
+      - database
+    restart: always
   database:
     image: mongo
     restart: always
-    ports:
-      - 27017:27017
