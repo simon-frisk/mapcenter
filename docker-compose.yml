@@ -26,9 +26,9 @@ services:
       - database
     restart: always
     volumes:
-      - /images
+      - ./storage/images:/usr/app/images
   database:
     image: mongo
     restart: always
     volumes:
-      - /data/db
+      - ./storage/db:/data/db
