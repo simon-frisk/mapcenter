@@ -64,6 +64,7 @@ export default props => {
         const ctx = canvasRef.current.getContext('2d')
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
         const { x, y, w, h } = mapGeometry
+        ctx.imageSmoothingEnabled = false
         ctx.drawImage(map, x, y, w, h)
         drawGpsGroup(gpsDrawData, ctx, userInput, colorGenerator)
     }
