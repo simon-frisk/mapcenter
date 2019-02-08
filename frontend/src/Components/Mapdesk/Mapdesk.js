@@ -37,7 +37,7 @@ export default props => {
 
     useEffect(() => {
         const img = new Image()
-        img.src = process.env.REACT_APP_API_URL + props.mapFile
+        img.src = '/api/' + props.mapFile
         img.onload = () => {
             const heightRatio = img.height / windowSize.h
             const widthRatio = img.width / windowSize.w

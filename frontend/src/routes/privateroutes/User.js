@@ -125,7 +125,7 @@ const RecentEvents = ({ user }) =>
                         <Grid item xs={12} sm={6} md={4} lg={3} key={course._id}>
                             <Card 
                                 name={`${course.event.name} - ${course.name}`}
-                                image={process.env.REACT_APP_API_URL + thumbPath}
+                                image={'/api/' + thumbPath}
                                 redirectTo={`/map/${course.event._id}/${course._id}`}
                                 />
                         </Grid>

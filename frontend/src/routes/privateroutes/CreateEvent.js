@@ -29,7 +29,7 @@ export default () => {
         Promise.all(courses.map(async course => {
             const formData = new FormData()
             formData.append('image', course.mapFile)
-            return await fetch(process.env.REACT_APP_API_URL + 'map', {
+            return await fetch('/api/map', {
                 method: 'PUT',
                 body: formData,
                 headers: new Headers({

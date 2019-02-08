@@ -109,7 +109,7 @@ export default props => {
                                     </Grid>
                                     { event.overviewMapPath &&
                                         <Grid item xs={12} md={6}>
-                                            <OverviewImage src={process.env.REACT_APP_API_URL + event.overviewMapPath} alt='overview' />
+                                            <OverviewImage src={'/api/' + event.overviewMapPath} alt='overview' />
                                         </Grid>
                                     }
                                 </Grid>
@@ -120,7 +120,7 @@ export default props => {
                                 return <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                                     <MyCard
                                         redirectTo={`/map/${props.match.params.id}/${course._id}`}
-                                        image={process.env.REACT_APP_API_URL + thumbPath}
+                                        image={'/api/' + thumbPath}
                                         name={course.name}
                                     />
                                 </Grid>

@@ -38,7 +38,7 @@ export default () =>
                                 return <Grid item xs={12} sm={6} md={4} lg={3} key={event._id}>
                                     <Card
                                         redirectTo={`/event/${event._id}`}
-                                        image={process.env.REACT_APP_API_URL + thumbPath}
+                                        image={'/api/' + thumbPath}
                                         name={event.name}
                                     />
                                 </Grid>

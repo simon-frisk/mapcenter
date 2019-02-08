@@ -1,16 +1,26 @@
 version: '3'
 services:
-  frontend:
-    build: ./client
-    restart: always
-    ports: 
-      - '80:80'
-  backend:
-    build: './backend/'
+  nginx:
+    build: 
+      dockerfile: Dockerfile
+      context: ./nginx
     restart: always
     ports:
-      - '4000:4000'
+      - 5000:80
+  frontend:
+    build: 
+      dockerfile: Dockerfile
+      context: ./frontend
+    restart: always
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    restart: always
+    links:
+      - database
   database:
     image: mongo
     restart: always
-    
+    ports:
+      - 27017:27017

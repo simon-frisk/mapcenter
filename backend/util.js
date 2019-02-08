@@ -14,9 +14,8 @@ exports.getAllFileNames = folder => {
 }
 
 exports.connectToDb = () => {
-    mongoose.connect(process.env.MONGODB, {
+    mongoose.connect('database', {
         useNewUrlParser: true,
-        reconnectTries: Number.MAX_VALUE, 
         reconnectInterval: 1000
     })
     const db = mongoose.connection
