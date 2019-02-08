@@ -14,7 +14,8 @@ exports.getAllFileNames = folder => {
 }
 
 exports.connectToDb = () => {
-    mongoose.connect('mongodb://database:27017/mapcenter', {
+    const dbUrl = process.env.NODE_ENV === 'production' ? 'mongodb://database:27017/mapcenter' : 'mongodb://localhost:27017/mapcenter'
+    mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         reconnectTries: Number.MAX_VALUE,
         reconnectInterval: 1000
