@@ -10,53 +10,12 @@ import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Hidden from '@material-ui/core/Hidden'
-import withStyles from '@material-ui/core/styles/withStyles'
 
-const styles = {
-    grow: {
-        flexGrow: 1
-    }
-}
-
-function navbar(props) {
+export default () => {
     const context = React.useContext(Context)
     const [menuAnchor, setMenuAnchor] = React.useState(null)
 
-    const buttons = context.user ?
-        <>
-            <Hidden smDown>
-                <Button color='inherit' component={Link} to='/explore'>Explore</Button>
-                <Button color='inherit' component={Link} to='/createevent'>Create event</Button>
-                <Button color='inherit' component={Link} to={`/user/${context.user}`}>My profile</Button>
-            </Hidden>
-            <Hidden mdUp>
-                <IconButton color='inherit' onClick={e => setMenuAnchor(e.currentTarget)}>
-                    <MenuIcon />
-                </IconButton>
-            </Hidden>
-
-            <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={setMenuAnchor.bind(null, null)}>
-                <MenuItem
-                    onClick={setMenuAnchor.bind(null, null)} component={Link} to={`/user/${context.user}`}>
-                    My profile
-                </MenuItem>
-                <MenuItem
-                    onClick={setMenuAnchor.bind(null, null)} component={Link} to='/explore'>
-                    Explore
-                </MenuItem>
-                <MenuItem
-                    onClick={setMenuAnchor.bind(null, null)} component={Link} to='/createevent'>
-                    Create event
-                </MenuItem>
-            </Menu>
-        </>
-        :
-        <>
-            <Button color='inherit' component={Link} to='/signin'>Sign in</Button>
-            <Button color='secondary' variant='outlined' component={Link} to='/signup'>Sign up</Button>
-        </>
-
-    return(
+    return (
         <AppBar color='primary' position='static' >
             <ToolBar>
                 <Typography
@@ -64,14 +23,66 @@ function navbar(props) {
                     color='inherit'
                     component={Link}
                     to='/'
-                    className={props.classes.grow} style={{textDecoration: 'none'}}
+                    style={{textDecoration: 'none', flexGrow: 1}}
                 >
                     {process.env.REACT_APP_APP_NAME}
                 </Typography>
-                {buttons}
+                <Hidden xsDown>
+                    {context.user ?
+                        <>
+                            <Button color='inherit' component={Link} to='/explore'>
+                                Explore
+                            </Button>
+                            <Button color='inherit' component={Link} to='/createevent'>
+                                Create event
+                            </Button>
+                            <Button color='inherit' component={Link} to={`/user/${context.user}`}>
+                                My profile
+                            </Button>
+                        </>
+                    :
+                        <>
+                            <Button color='inherit' component={Link} to='/signin'>
+                                Sign in
+                            </Button>
+                            <Button color='secondary' variant='outlined' component={Link} to='/signup'>
+                                Sign up
+                            </Button>
+                        </>
+                    }
+                </Hidden>
+                <Hidden smUp>
+                    <IconButton color='inherit' onClick={e => setMenuAnchor(e.currentTarget)}>
+                        <MenuIcon />
+                    </IconButton>
+                </Hidden>
+
+                {context.user ?
+                    <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={setMenuAnchor.bind(null, null)}>
+                        <MenuItem
+                            onClick={setMenuAnchor.bind(null, null)} component={Link} to={`/user/${context.user}`}>
+                            My profile
+                        </MenuItem>
+                        <MenuItem
+                            onClick={setMenuAnchor.bind(null, null)} component={Link} to='/explore'>
+                            Explore
+                        </MenuItem>
+                        <MenuItem
+                            onClick={setMenuAnchor.bind(null, null)} component={Link} to='/createevent'>
+                            Create event
+                        </MenuItem>
+                    </Menu>
+                :
+                    <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={setMenuAnchor.bind(null, null)}>
+                        <MenuItem component={Link} to='/signin'>
+                            Sign in
+                        </MenuItem>
+                        <MenuItem component={Link} to='/signup'>
+                            Sign up
+                        </MenuItem>
+                    </Menu>
+                }
             </ToolBar>
         </AppBar>
     )
 }
-
-export default withStyles(styles)(navbar)

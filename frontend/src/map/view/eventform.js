@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import Input from '@material-ui/core/Input'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
@@ -26,8 +25,9 @@ export default props => {
     }
 
     function removeCourse(index) {
-        courses.splice(index, 1)
-        setCourses(courses)
+        let newCourses = courses.slice()
+        newCourses.splice(index, 1)
+        setCourses(newCourses)
     }
 
     function onCourseNameChange(index, value) {
@@ -83,11 +83,20 @@ export default props => {
                                     value={course.name}
                                     onChange={e => onCourseNameChange(index, e.target.value)}
                                 />
-                                <Input
-                                    style={{display: 'block'}}
+                                <input
                                     type='file'
+                                    id={'fileinput' + index}
+                                    style={{display: 'none'}}
                                     onChange={e => onMapFileChange(index, e.target.files[0])}
                                 />
+                                <Button
+                                    size='medium'
+                                    variant='contained'
+                                    onClick={() => document.getElementById('fileinput' + index).click()}
+                                >
+                                    Select file
+                                </Button>
+                                <Typography variant='subtitle2'>{course.mapFile && course.mapFile.name}</Typography>
                             </CardContent>
                             <IconButton onClick={removeCourse.bind(null, index)}>
                                 <Delete />
