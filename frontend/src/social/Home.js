@@ -19,7 +19,9 @@ const styles = {
     footer: {
         display: 'flex',
         padding: '2%',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        maxWidth: '100%',
+        overflow: 'hidden'
     }
 }
 

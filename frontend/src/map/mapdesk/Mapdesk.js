@@ -39,8 +39,8 @@ export default props => {
         const img = new Image()
         img.src = '/api/' + props.mapFile
         img.onload = () => {
-            const heightRatio = img.height / windowSize.h
             const widthRatio = img.width / windowSize.w
+            const heightRatio = img.height / windowSize.h
             let w = widthRatio < heightRatio ? windowSize.w : img.width / heightRatio
             const h = widthRatio > heightRatio ? windowSize.h : img.height / widthRatio
             const x = -(w - windowSize.w) / 2

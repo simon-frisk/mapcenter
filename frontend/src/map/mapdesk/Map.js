@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 
 export function useViewportSizeAndPreventCanvasScrolling(canvasRef) {
     function getWindowState() {
-        return {w: document.body.clientWidth, h: window.innerHeight}
+        const dpr = window.devicePixelRatio || 1
+        return {
+            w: document.body.clientWidth * dpr,
+            h: window.innerHeight * dpr
+        }
     }
 
     const [windowSize, setWindowSize] = useState(getWindowState())
