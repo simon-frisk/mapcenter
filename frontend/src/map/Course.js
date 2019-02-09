@@ -97,8 +97,8 @@ export default props => {
                             mapFile={course.mapPath}
                             gpsGroup={course.userRecordings.map(user => user.gps)}
                         >
-                            <IconButton color='secondary' ><Play /></IconButton>
-                            <IconButton color='secondary' ><Pause /></IconButton>
+                            {/*<IconButton color='secondary' ><Play /></IconButton>
+                            <IconButton color='secondary' ><Pause /></IconButton>*/}
                         </Mapdesk>
                     </>
                 )
