@@ -7,7 +7,7 @@ import PrivateRoute from './PrivateRoute'
 import Publicroute from './Publicroute'
 import Context from './Context'
 import theme from './theme'
-import Navbar from '../general/Navbar'
+import Navbar from '../general/navbar/Navbar'
 import Loading from '../general/Loading'
 
 export default () => {

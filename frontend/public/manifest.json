@@ -2,6 +2,18 @@
   "short_name": "Mapcenter",
   "name": "Mapcenter",
   "start_url": ".",
+  "icons": [
+    {
+      "src": "/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
   "description": "Mapcenter is a social network connecting orienteering. It is used for analysis and sharing orienteering adventures.",
   "display": "standalone",
   "theme_color": "#FFC107",
