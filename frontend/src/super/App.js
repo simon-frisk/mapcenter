@@ -7,8 +7,8 @@ import PrivateRoute from './PrivateRoute'
 import Publicroute from './Publicroute'
 import Context from './Context'
 import theme from './theme'
-import Navbar from '../layout/Navbar'
-import Loading from '../view/Loading'
+import Navbar from '../general/Navbar'
+import Loading from '../general/Loading'
 
 export default () => {
     const [decodedToken, setDecodedToken] = useState()
@@ -37,31 +37,31 @@ export default () => {
                     <Suspense fallback={<Loading />}>
                         <Switch>
                             <Publicroute exact path='/' 
-                                component={lazy(() => import('../social/Home'))}
+                                component={lazy(() => import('../special/out/home/Home'))}
                             />
                             <Publicroute exact path='/signin' 
-                                component={lazy(() => import('../social/Signin'))} 
+                                component={lazy(() => import('../special/out/auth/Signin'))} 
                             />
                             <Publicroute exact path='/signup' 
-                                component={lazy(() => import('../social/Signup'))} 
+                                component={lazy(() => import('../special/out/auth/Signup'))} 
                             />
                             <PrivateRoute exact path='/user/:id' 
-                                component={lazy(() => import('../social/User'))} 
+                                component={lazy(() => import('../special/user/User'))} 
                             />
                             <PrivateRoute exact path='/explore' 
-                                component={lazy(() => import('../social/Explore'))} 
+                                component={lazy(() => import('../special/explore/Explore'))} 
                             />
                             <PrivateRoute exact path='/createevent' 
-                                component={lazy(() => import('../map/CreateEvent'))} 
+                                component={lazy(() => import('../special/map/CreateEvent'))} 
                             />
                             <PrivateRoute exact path='/event/:id' 
-                                component={lazy(() => import('../social/Event'))} 
+                                component={lazy(() => import('../special/event/Event'))} 
                             />
                             <PrivateRoute exact path='/map/:eventId/:courseId' 
-                                component={lazy(() => import('../map/Course'))} 
+                                component={lazy(() => import('../special/map/Course'))} 
                             />
                             <PrivateRoute exact path='/map/:eventId/:courseId/add' 
-                                component={lazy(() => import('../map/AddGps'))} 
+                                component={lazy(() => import('../special/map/AddGps'))} 
                             />
                         </Switch>
                     </Suspense>

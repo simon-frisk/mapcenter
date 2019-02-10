@@ -7,9 +7,9 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import gql from 'graphql-tag'
 import { Mutation } from 'react-apollo'
-import Context from '../super/Context'
-import Hero from '../view/Hero'
-import background from './bg.png'
+import Context from '../../../super/Context'
+import Hero from '../../../general/Hero'
+import background from '../bg.png'
 
 const MUTATION = gql`
     mutation SignUp($userInput: UserInput!) {

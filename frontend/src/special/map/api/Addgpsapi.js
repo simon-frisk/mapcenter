@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import Context from '../../super/Context'
-import Loading from '../../view/Loading'
+import Context from '../../../super/Context'
+import Loading from '../../../general/Loading'
 
 const QUERY = gql`
     query GetEvent($id: ID! $course: ID!) {

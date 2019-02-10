@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Delete from '@material-ui/icons/Delete'
-import Float from '../../view/Float'
-import { Slide, SlideItem } from '../../view/Slide'
+import Float from '../../../general/Float'
+import { Slide, SlideItem } from '../../../general/Slide'
 
 export default props => {
     const [name, setName] = useState('')

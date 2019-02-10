@@ -1,5 +1,5 @@
 import React from 'react'
-import Context from '../super/Context'
+import Context from '../../../super/Context'
 import gql from 'graphql-tag'
 import { ApolloConsumer } from 'react-apollo'
 import Card from '@material-ui/core/Card'
@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography'
 import CardActions from '@material-ui/core/CardActions'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Hero from '../view/Hero'
-import background from './bg.png'
+import Hero from '../../../general/Hero'
+import background from '../bg.png'
 
 const SIGNIN_QUERY = gql`
     query Login($email: String! $password: String!) {

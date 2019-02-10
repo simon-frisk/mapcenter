@@ -8,11 +8,11 @@ import IconButton from '@material-ui/core/IconButton'
 import BackArrow from '@material-ui/icons/ArrowBack'
 import Play from '@material-ui/icons/PlayCircleFilled'
 import Pause from '@material-ui/icons/PauseCircleFilled'
-import Context from '../super/Context'
-import Loading from '../view/Loading'
+import Context from '../../super/Context'
+import Loading from '../../general/Loading'
 import Mapdesk from './mapdesk/Mapdesk'
 import UserTable from './view/usertable'
-import { TopInfo } from '../layout/TopInfo'
+import { TopInfo } from '../../general/TopInfo'
 
 const QUERY = gql`
     query GetCourse($event: ID! $course: ID!) {

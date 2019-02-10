@@ -8,10 +8,10 @@ import Button from '@material-ui/core/Button'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import Context from '../super/Context'
-import Loading from '../view/Loading'
-import Layout from '../layout/Layout'
-import MyCard from '../view/Card'
+import Context from '../../super/Context'
+import Loading from '../../general/Loading'
+import Layout from '../../general/Layout'
+import MyCard from '../../general/Card'
 
 const QUERY = gql`
     query GetEvent($id: ID!){

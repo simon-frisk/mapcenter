@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import EventForm from './view/eventform'
-import Layout from '../layout/Layout'
+import Layout from '../../general/Layout'
 
 const MUTATION = gql`
     mutation CreateEvent($eventInput: EventInput!) {
