@@ -36,8 +36,7 @@ export default function() {
                 context.setAuthUser(data.login)
             } catch(error) {
                 setLoading(false)
-                setError('could not log in')
-                //include information about why
+                setError('Failed to log in')
             }
         }
     }
@@ -52,7 +51,11 @@ export default function() {
                                 <Typography variant='h5'>Sign in</Typography>
                                 <TextField label='email' fullWidth value={email} onChange={e => setEmail(e.target.value)} />
                                 <TextField label='password' type='password' fullWidth value={password} onChange={e => setPassword(e.target.value)} />
-                                {error ? <Typography color='error' variant='subtitle2'>{error}</Typography> : <></>}
+                                {error && 
+                                    <Typography color='error' variant='subtitle2'>
+                                        {error}
+                                    </Typography>
+                                }
                             </CardContent>
                             <CardActions>
                                 <Button color='secondary' variant='contained' type='submit' disabled={loading}>Sign in</Button>

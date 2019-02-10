@@ -44,6 +44,6 @@ exports.checkToken = (req, _, next) => {
 }
 
 exports.checkAuth = userId => {
-    //if(!userId)
-    //    throw new Error('not authorized')
+    if(!userId)
+        throw new Error('not authorized')
 }

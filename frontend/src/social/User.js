@@ -14,6 +14,7 @@ import Float from '../view/Float'
 import Level from '../view/Level'
 import Layout from '../layout/Layout'
 import Context from '../super/Context'
+import Error from '../view/Error'
 
 const GETUSERQUERY = gql`
     query GetUserQuery($id: ID!) {
@@ -63,7 +64,7 @@ export default withRouter(props => {
                     if(loading)
                         return <Loading />
                     if(error)
-                        return 'Could not load user'
+                        return <Error />
                     const { user } = data
                     const following = user.followers.map(user => user._id).includes(context.user)
                     return (

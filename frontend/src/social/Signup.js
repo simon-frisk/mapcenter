@@ -74,7 +74,7 @@ export default function() {
                                     {
                                         (error || mutationError) &&
                                         <Typography color='error' variant='subtitle2'>      
-                                            {error || 'could not sign up'}
+                                            {error || 'Failed to sign up'}
                                         </Typography>
                                     }
                                 </CardContent>

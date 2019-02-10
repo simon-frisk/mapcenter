@@ -11,7 +11,7 @@ module.exports = {
             throw new Error('invalid credentials')
         const loginSuccess = await bcrypt.compare(password, user.password)
         if(!loginSuccess)
-            throw new Error('invalid credentials pass')
+            throw new Error('invalid credentials')
         const token = await jwt.sign({userId: user.id}, 'kjasdlfjalashdfushdluahful')
         return token
     },

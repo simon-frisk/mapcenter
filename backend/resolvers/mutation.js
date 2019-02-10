@@ -6,6 +6,7 @@ const Course = require('../db/courseschema')
 const UserRecording = require('../db/userrecordingschema')
 const { checkAuth } = require('../util')
 const { generateOverviewMap } = require('../image')
+const fs = require('fs')
 
 module.exports = {
     async createUser(_, { userInput }) {
@@ -61,6 +62,18 @@ module.exports = {
             })
             await Course.findByIdAndDelete(course._id)
         })
+        event.courses.forEach(course => {
+            fs.unlink(course.mapPath.split('/').join('/thumb_'), err => {
+                if(err) throw err
+            })
+            fs.unlink(course.mapPath, err => {
+                if(err) throw err
+            })
+        })
+        if(event.overviewMapPath)
+            fs.unlink(event.overviewMapPath, err => {
+                if(err) throw err
+            })
         await Event.findByIdAndDelete(id)
         return event
     },
