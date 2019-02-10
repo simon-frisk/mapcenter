@@ -58,7 +58,6 @@ export default withRouter(props => {
             <Query
                 query={GETUSERQUERY}
                 variables={{id: props.match.params.id}}
-                fetchPolicy='cache-and-network'
             >
                 {({client, loading, error, data}) => {
                     if(loading)
@@ -90,16 +89,20 @@ export default withRouter(props => {
                                                     id: props.match.params.id
                                                 }}
                                             >
-                                                {(mutate, {loading}) =>
-                                                    <Button
-                                                        variant='contained'
-                                                        color={!following ? 'secondary' : 'default'}
-                                                        disabled={loading}
-                                                        onClick={mutate}
-                                                    >
-                                                        {!following ? 'follow' : 'unfollow'}
-                                                    </Button>
-                                                }
+                                                {(mutate, { loading, called, client }) => {
+                                                    if(!loading && called)
+                                                        client.resetStore()
+                                                    return (
+                                                        <Button
+                                                            variant='contained'
+                                                            color={!following ? 'secondary' : 'default'}
+                                                            disabled={loading}
+                                                            onClick={mutate}
+                                                        >
+                                                            {!following ? 'follow' : 'unfollow'}
+                                                        </Button>
+                                                    )
+                                                }}
                                             </Mutation>
                                     }
                                 </Float>

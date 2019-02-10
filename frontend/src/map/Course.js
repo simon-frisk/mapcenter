@@ -16,10 +16,10 @@ import { TopInfo } from '../layout/TopInfo'
 
 const QUERY = gql`
     query GetCourse($event: ID! $course: ID!) {
-        event(id: $event courses: [$course]) {
+        event(id: $event) {
             _id
             name
-            courses {
+            courses(id: $course) {
                 name
                 mapPath
                 userRecordings {
@@ -53,8 +53,7 @@ export default props => {
 
     return (
         <Query 
-            query={QUERY} 
-            fetchPolicy='cache-and-network'
+            query={QUERY}
             variables={{
                 event: props.match.params.eventId,
                 course: props.match.params.courseId
@@ -109,8 +108,11 @@ export default props => {
 
 const RemoveGpsButton = ({ courseId }) => 
     <Mutation mutation={MUTATION}>
-        {(mutate, { loading }) => {
+        {(mutate, { called, loading, client }) => {
             if(loading) return <Loading />
+            if(called && !loading) {
+                client.resetStore()
+            }
             return (
                 <Button variant='contained' onClick={() => mutate({variables: {courseId}})}>
                     Remove gps

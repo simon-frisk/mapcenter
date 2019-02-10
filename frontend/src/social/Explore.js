@@ -9,10 +9,10 @@ import Layout from '../layout/Layout'
 
 const RECENTEVENTSQUERY = gql`
     {
-        recentEvents(courses: [0]) {
+        recentEvents {
             name
             _id
-            courses {
+            courses(onlyFirst: true) {
                 mapPath
             }
         }
@@ -21,7 +21,7 @@ const RECENTEVENTSQUERY = gql`
 
 export default () => 
     <Layout>
-        <Query query={RECENTEVENTSQUERY} fetchPolicy='cache-and-network'>
+        <Query query={RECENTEVENTSQUERY}>
             {({loading, error, data}) => {
                 if(loading)
                     return <Loading />

@@ -63,9 +63,11 @@ export default () => {
     return (
         <Layout>
             <Mutation mutation={MUTATION}>
-                {(createEvent, { loading, error: mutationError, data, called }) => {
-                    if(called && !loading && !mutationError)
+                {(createEvent, { client, loading, error: mutationError, data, called }) => {
+                    if(called && !loading && !mutationError) {
+                        client.resetStore()
                         return <Redirect to={`/event/${data.createEvent._id}`} />
+                    }
                     return (
                         <EventForm
                             onCreateEvent={(name, courses) => {

@@ -7,9 +7,9 @@ import Loading from '../../view/Loading'
 
 const QUERY = gql`
     query GetEvent($id: ID! $course: ID!) {
-        event(id: $id courses: [$course]) {
+        event(id: $id) {
             name
-            courses {
+            courses(id: $course) {
                 userRecordings {
                     user {
                         _id
@@ -32,12 +32,15 @@ export default withRouter(function({ eventId, courseId, children }) {
 
     return (
         <Mutation mutation={MUTATION}>
-            {(apolloMutate, { called, loading: mutationLoading, error: mutationError }) => {
-                if(called && !mutationLoading && !mutationError) return (
-                    <Redirect
-                        to={`/map/${eventId}/${courseId}`}
-                    />
-                )
+            {(apolloMutate, { client, called, loading: mutationLoading, error: mutationError }) => {
+                if(called && !mutationLoading && !mutationError) {
+                    client.resetStore()
+                    return (
+                        <Redirect
+                            to={`/map/${eventId}/${courseId}`}
+                        />
+                    )
+                }
 
                 function mutate(gps, firstCoord, startTime) {
                     apolloMutate({variables: {

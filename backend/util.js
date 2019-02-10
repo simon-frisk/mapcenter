@@ -42,3 +42,8 @@ exports.checkToken = (req, _, next) => {
     req.userId = decodedToken.userId
     next()
 }
+
+exports.checkAuth = userId => {
+    //if(!userId)
+    //    throw new Error('not authorized')
+}

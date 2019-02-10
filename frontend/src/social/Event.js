@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Typography from '@material-ui/core/Typography'
@@ -16,6 +16,7 @@ import MyCard from '../view/Card'
 const QUERY = gql`
     query GetEvent($id: ID!){
         event(id: $id) {
+            _id
             name
             overviewMapPath
             courses {
@@ -39,7 +40,7 @@ const QUERY = gql`
 
 const DELETEMUTATION = gql`
     mutation DeleteEvent($id: ID!) {
-        deleteEvent(eventId: $id)
+        deleteEvent(id: $id)
     }
 `
 
@@ -51,7 +52,6 @@ export default props => {
             <Query 
                 query={QUERY} 
                 variables={{id: props.match.params.id}}
-                fetchPolicy='cache-and-network'
             >
                 {({loading, error, data}) => {
                     if(loading)
@@ -91,8 +91,12 @@ export default props => {
                                                 </Level>
                                                 {event.adminUser._id === context.user &&
                                                     <Mutation mutation={DELETEMUTATION}>
-                                                        {(mutate, {loading}) => {
+                                                        {(mutate, {called, client, loading}) => {
                                                             if(loading) return <Loading />
+                                                            if(!loading && called) {
+                                                                client.resetStore()
+                                                                return <Redirect to='/' />
+                                                            }
                                                             return (
                                                                 <Button
                                                                     variant='contained'
