@@ -6,6 +6,7 @@ import gql from 'graphql-tag'
 import Card from '../../general/Card'
 import Loading from '../../general/Loading'
 import Layout from '../../general/Layout'
+import Error from '../../general/Error'
 
 const RECENTEVENTSQUERY = gql`
     {
@@ -25,6 +26,8 @@ export default () =>
             {({loading, error, data}) => {
                 if(loading)
                     return <Loading />
+                if(error)
+                    return <Error />
                 return (
                     <>
                         <Typography variant='h5'>Recent events</Typography>
@@ -32,17 +35,16 @@ export default () =>
                             {data && data.recentEvents.map(event => {
                                 const path = event.courses[0].mapPath
                                 const thumbPath = path.slice(0, 7) + 'thumb_' + path.slice(7)
-                                return <Grid item xs={12} sm={6} md={4} lg={3} key={event._id}>
-                                    <Card
-                                        redirectTo={`/event/${event._id}`}
-                                        image={'/api/' + thumbPath}
-                                        name={event.name}
-                                    />
-                                </Grid>
+                                return (
+                                    <Grid item xs={12} sm={6} md={4} lg={3} key={event._id}>
+                                        <Card
+                                            redirectTo={`/event/${event._id}`}
+                                            image={'/api/' + thumbPath}
+                                            name={event.name}
+                                        />
+                                    </Grid>
+                                )
                             })}
-                            {error &&
-                               data
-                            }
                         </Grid>
                     </>
                 )

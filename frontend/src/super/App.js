@@ -9,6 +9,7 @@ import Context from './Context'
 import theme from './theme'
 import Navbar from '../general/navbar/Navbar'
 import Loading from '../general/Loading'
+import Errorboundary from './Errorboundary'
 
 export default () => {
     const [decodedToken, setDecodedToken] = useState()
@@ -34,37 +35,39 @@ export default () => {
                 <CssBaseline />
                 <Context.Provider value={{user: decodedToken ? decodedToken.userId : null, setAuthUser}}>
                     <Navbar />
-                    <Suspense fallback={<Loading />}>
-                        <Switch>
-                            <Publicroute exact path='/' 
-                                component={lazy(() => import('../special/out/home/Home'))}
-                            />
-                            <Publicroute exact path='/signin' 
-                                component={lazy(() => import('../special/out/auth/Signin'))} 
-                            />
-                            <Publicroute exact path='/signup' 
-                                component={lazy(() => import('../special/out/auth/Signup'))} 
-                            />
-                            <PrivateRoute exact path='/user/:id' 
-                                component={lazy(() => import('../special/user/User'))} 
-                            />
-                            <PrivateRoute exact path='/explore' 
-                                component={lazy(() => import('../special/explore/Explore'))} 
-                            />
-                            <PrivateRoute exact path='/createevent' 
-                                component={lazy(() => import('../special/map/CreateEvent'))} 
-                            />
-                            <PrivateRoute exact path='/event/:id' 
-                                component={lazy(() => import('../special/event/Event'))} 
-                            />
-                            <PrivateRoute exact path='/map/:eventId/:courseId' 
-                                component={lazy(() => import('../special/map/Course'))} 
-                            />
-                            <PrivateRoute exact path='/map/:eventId/:courseId/add' 
-                                component={lazy(() => import('../special/map/AddGps'))} 
-                            />
-                        </Switch>
-                    </Suspense>
+                    <Errorboundary>
+                        <Suspense fallback={<Loading />}>
+                            <Switch>
+                                <Publicroute exact path='/' 
+                                    component={lazy(() => import('../special/out/home/Home'))}
+                                />
+                                <Publicroute exact path='/signin' 
+                                    component={lazy(() => import('../special/out/auth/Signin'))} 
+                                />
+                                <Publicroute exact path='/signup' 
+                                    component={lazy(() => import('../special/out/auth/Signup'))} 
+                                />
+                                <PrivateRoute exact path='/user/:id' 
+                                    component={lazy(() => import('../special/user/User'))} 
+                                />
+                                <PrivateRoute exact path='/explore' 
+                                    component={lazy(() => import('../special/explore/Explore'))} 
+                                />
+                                <PrivateRoute exact path='/createevent' 
+                                    component={lazy(() => import('../special/map/CreateEvent'))} 
+                                />
+                                <PrivateRoute exact path='/event/:id' 
+                                    component={lazy(() => import('../special/event/Event'))} 
+                                />
+                                <PrivateRoute exact path='/map/:eventId/:courseId' 
+                                    component={lazy(() => import('../special/map/Course'))} 
+                                />
+                                <PrivateRoute exact path='/map/:eventId/:courseId/add' 
+                                    component={lazy(() => import('../special/map/AddGps'))} 
+                                />
+                            </Switch>
+                        </Suspense>
+                    </Errorboundary>
                 </Context.Provider>
             </MuiThemeProvider>
         </BrowserRouter>
