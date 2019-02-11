@@ -1,5 +1,5 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
@@ -65,6 +65,7 @@ export default () => {
                                 <PrivateRoute exact path='/map/:eventId/:courseId/add' 
                                     component={lazy(() => import('../special/map/AddGps'))} 
                                 />
+                                <Redirect to='/' />
                             </Switch>
                         </Suspense>
                     </Errorboundary>
