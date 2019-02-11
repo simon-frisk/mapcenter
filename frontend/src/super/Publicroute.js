@@ -8,7 +8,7 @@ export default ({component: Component, ...rest}) => {
         <Route {...rest} render={props => (
             !context.user
             ? <Component {...props} />
-            : <Redirect to='/explore' />
+            : <Redirect to='/dashboard' />
         )} />
     )
 }

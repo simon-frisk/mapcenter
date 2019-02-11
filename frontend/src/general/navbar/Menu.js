@@ -12,8 +12,8 @@ export default ({ user, menuAnchor, setMenuAnchor }) =>
                     My profile
                 </MenuItem>
                 <MenuItem
-                    onClick={setMenuAnchor.bind(null, null)} component={Link} to='/explore'>
-                    Explore
+                    onClick={setMenuAnchor.bind(null, null)} component={Link} to='/dashboard'>
+                    Dashboard
                 </MenuItem>
                 <MenuItem
                     onClick={setMenuAnchor.bind(null, null)} component={Link} to='/createevent'>

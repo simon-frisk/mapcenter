@@ -50,8 +50,8 @@ export default () => {
                                 <PrivateRoute exact path='/user/:id' 
                                     component={lazy(() => import('../special/user/User'))} 
                                 />
-                                <PrivateRoute exact path='/explore' 
-                                    component={lazy(() => import('../special/explore/Explore'))} 
+                                <PrivateRoute exact path='/dashboard' 
+                                    component={lazy(() => import('../special/dashboard/Dashboard'))} 
                                 />
                                 <PrivateRoute exact path='/createevent' 
                                     component={lazy(() => import('../special/map/CreateEvent'))} 

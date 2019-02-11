@@ -6,8 +6,8 @@ export default ({ user }) =>
     <>
         {user ?
             <>
-                <Button color='inherit' component={Link} to='/explore'>
-                    Explore
+                <Button color='inherit' component={Link} to='/dashboard'>
+                    Dashboard
                 </Button>
                 <Button color='inherit' component={Link} to='/createevent'>
                     Create event

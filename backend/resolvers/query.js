@@ -23,7 +23,7 @@ module.exports = {
 
     topUsers(_, __, { userId }) {
         checkAuth(userId)
-        return User.find().sort('-_id').limit(10).exec()
+        return User.find().sort('-courses').limit(10).exec()
     },
 
     event(_, { id }, { userId }) {
