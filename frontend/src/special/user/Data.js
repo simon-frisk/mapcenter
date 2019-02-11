@@ -18,9 +18,11 @@ const GETUSERQUERY = gql`
                 mapPath
             }
             followers {
+                name
                 _id
             }
             following {
+                name
                 _id
             }
         }

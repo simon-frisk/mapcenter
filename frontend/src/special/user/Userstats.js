@@ -1,8 +1,8 @@
 import React from 'react'
 import DirectionsRun from '@material-ui/icons/DirectionsRun'
-import SupervisorAccount from '@material-ui/icons/SupervisorAccount'
 import Typography from '@material-ui/core/Typography'
 import Level from '../../general/Level'
+import Userlist from './Userlist'
 
 export default ({ user }) =>
     <>
@@ -12,13 +12,9 @@ export default ({ user }) =>
             </Level>
         </Typography>
         <Typography variant='h6'>
-            <Level>
-                <SupervisorAccount /> {user.followers.length} followers
-            </Level>
+            <Userlist users={user.followers} mode={'Followers'} />
         </Typography>
         <Typography variant='h6'>
-            <Level>
-                <SupervisorAccount /> {user.following.length} following
-            </Level>
+            <Userlist users={user.following} mode={'Following'} />
         </Typography>
     </>

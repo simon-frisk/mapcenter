@@ -7,7 +7,7 @@ const Table = styled.div`
 const Row = styled.div`
     padding: 20px;
     color: white;
-    font-family: roboto;
+    font-family: Arial, Roboto, sans-serif;
     display: flex;
     justify-content: space-between;
 `
