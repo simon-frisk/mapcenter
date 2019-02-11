@@ -1,6 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import { Link } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Card from '../../general/Card'
@@ -8,8 +9,8 @@ import Loading from '../../general/Loading'
 import Layout from '../../general/Layout'
 import Error from '../../general/Error'
 
-const RECENTEVENTSQUERY = gql`
-    {
+const QUERY = gql`
+    query explore {
         recentEvents {
             name
             _id
@@ -17,12 +18,16 @@ const RECENTEVENTSQUERY = gql`
                 mapPath
             }
         }
+        topUsers {
+            _id
+            name
+        }
     }
 `
 
 export default () => 
     <Layout>
-        <Query query={RECENTEVENTSQUERY}>
+        <Query query={QUERY}>
             {({loading, error, data}) => {
                 if(loading)
                     return <Loading />
@@ -30,7 +35,7 @@ export default () =>
                     return <Error />
                 return (
                     <>
-                        <Typography variant='h5'>Recent events</Typography>
+                        <Typography variant='h4'>Recent events</Typography>
                         <Grid container spacing={16}>
                             {data && data.recentEvents.map(event => {
                                 const path = event.courses[0].mapPath
@@ -42,6 +47,16 @@ export default () =>
                                             image={'/api/' + thumbPath}
                                             name={event.name}
                                         />
+                                    </Grid>
+                                )
+                            })}
+                        </Grid>
+                        <Typography variant='h4'>Top users</Typography>
+                        <Grid container spacing={16}>
+                            {data && data.topUsers.map(user => {
+                                return (
+                                    <Grid item xs={12} sm={6} md={4} lg={3} key={user._id}>
+                                        <Typography variant='h6' component={Link} to={'/user/' + user._id}>{user.name}</Typography>
                                     </Grid>
                                 )
                             })}

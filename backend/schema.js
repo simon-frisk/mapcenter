@@ -4,6 +4,7 @@ module.exports = gql`
 
     type Query {
         recentEvents: [Event!]!
+        topUsers: [User!]!
         event(id: ID!): Event!
         user(id: ID!): User!
         login(email: String!, password: String!): String!

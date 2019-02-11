@@ -18,7 +18,12 @@ module.exports = {
 
     recentEvents(_, __, { userId }) {
         checkAuth(userId)
-        return Event.find().sort('-_id').exec()
+        return Event.find().sort('-_id').limit(10).exec()
+    },
+
+    topUsers(_, __, { userId }) {
+        checkAuth(userId)
+        return User.find().sort('-_id').limit(10).exec()
     },
 
     event(_, { id }, { userId }) {
