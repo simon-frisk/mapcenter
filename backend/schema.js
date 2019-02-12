@@ -16,6 +16,7 @@ module.exports = gql`
         deleteEvent(id: ID!): Boolean!
         addGps(courseId: ID! userRecordingInput: UserRecordingInput!): Boolean!
         removeGps(courseId: ID!): Boolean!
+        uploadProfilePicture(file: Upload!): String! 
         follow(id: ID!): Boolean!
         unfollow(id: ID!): Boolean!
     }
@@ -43,6 +44,7 @@ module.exports = gql`
         courses: [Course!]
         following: [User!]
         followers: [User!]
+        profilePicturePath: String
     }
     
     type UserRecording {

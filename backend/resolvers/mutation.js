@@ -102,7 +102,7 @@ module.exports = {
     },
 
     async removeGps(_, { courseId }, { userId }) {
-        checkAuth('userId')
+        checkAuth(userId)
         const course = await Course.findById(courseId).populate('userRecordings')
         course.userRecordings.forEach(async (userRecording, index) => {
             if(userRecording.user == userId) {
@@ -119,6 +119,31 @@ module.exports = {
         })
         user.save()
         return true
+    },
+
+    async uploadProfilePicture(_, { file }, { userId }) {
+        checkAuth(userId)
+        const { stream, mimetype } = await file
+        if(!mimetype.startsWith('image/'))
+            throw new Error('invalid file type')
+        const filePath = './images/' + uniqueFilename('') + '.' + mimeTypes.extension(mimetype)
+        await new Promise((resolve, reject) => {
+            stream
+                .on('error', error => {
+                    if(stream.truncated)
+                        fs.unlink(filePath)
+                    reject(error)
+                })
+                .pipe(fs.createWriteStream(filePath))
+                .on('error', reject)
+                .on('finish', () => resolve())
+        })
+        const user = await User.findById(userId)
+        if(user._doc.profilePicturePath)
+            fs.unlink(user.profilePicturePath)
+        user.profilePicturePath = filePath
+        user.save()
+        return filePath
     },
 
     async follow(_, { id }, { userId }) {

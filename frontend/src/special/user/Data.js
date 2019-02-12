@@ -8,6 +8,7 @@ const GETUSERQUERY = gql`
     query GetUserQuery($id: ID!) {
         user(id: $id) {
             name
+            profilePicturePath
             courses {
                 name
                 _id

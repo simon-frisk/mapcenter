@@ -24,7 +24,8 @@ const UserSchema = new mongoose.Schema({
     followers: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'User'
-    }]
-}, {timestamps: true})
+    }],
+    profilePicturePath: String
+})
 
 module.exports = mongoose.model('User', UserSchema)

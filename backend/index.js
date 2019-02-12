@@ -24,7 +24,11 @@ new ApolloServer({
     resolvers, 
     context: ({req}) => ({
         userId: req.userId
-    })
+    }),
+    uploads: {
+        maxFileSize: 500000000,
+        maxFiles: 1
+    }
 }).applyMiddleware({app})
 
 app.listen(4000, () => {
