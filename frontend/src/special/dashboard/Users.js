@@ -5,6 +5,8 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Level from '../../general/Level'
+import ProfilePicture from '../../general/Profilepicture'
 
 export default ({ data }) => 
     <div style={{ marginTop: '20px' }}>
@@ -16,9 +18,12 @@ export default ({ data }) =>
                         <MuiCard>
                             <CardActionArea component={Link} to={'/user/' + user._id}>
                                 <CardContent>
-                                    <Typography variant='h6'>
-                                        { user.name }
-                                    </Typography>
+                                    <Level>
+                                        <ProfilePicture user={user} size={50} />
+                                        <Typography variant='h6' style={{margin: '10px'}} >
+                                            { user.name }
+                                        </Typography>
+                                    </Level>
                                 </CardContent>
                             </CardActionArea>
                         </MuiCard>

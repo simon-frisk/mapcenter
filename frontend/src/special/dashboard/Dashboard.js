@@ -19,6 +19,7 @@ const QUERY = gql`
         topUsers {
             _id
             name
+            profilePicturePath
         }
     }
 `

@@ -33,8 +33,6 @@ image.put('/map', (req, res, next) => {
 
 image.use(multerSetup)
 
-image.use('/images', express.static('images'))
-
 image.put('/map', (req, res) => {
     if(!req.file)
         return res.send('no file provided or provided file of wrong type')

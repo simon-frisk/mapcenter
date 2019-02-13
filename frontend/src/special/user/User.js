@@ -9,7 +9,8 @@ import Data from './Data'
 import UserStats from './Userstats'
 import Recentmaps from './Recentmaps'
 import Topbutton from './Topbutton'
-import Profilepicture from './Profilepicure'
+import ChangeProfilepicure from './ChangeProfilepicure';
+import Profilepicture from '../../general/Profilepicture';
 
 export default withRouter(props => {
     const context = useContext(Context)
@@ -20,7 +21,10 @@ export default withRouter(props => {
                     <>
                         <TopPanel>
                             <Float>
-                                <Profilepicture path={user.profilePicturePath} text='xx' />
+                                {context.user === user._id 
+                                    ? <ChangeProfilepicure user={user} />
+                                    : <Profilepicture user={user} size={90} />
+                                }
                                 <Typography variant='h3'>{user.name}</Typography>
                                 <Topbutton 
                                     context={context} 

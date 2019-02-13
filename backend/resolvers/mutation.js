@@ -1,3 +1,5 @@
+const uniqueFilename = require('unique-filename')
+const mimeTypes = require('mime-types')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../db/userschema')
@@ -123,24 +125,21 @@ module.exports = {
 
     async uploadProfilePicture(_, { file }, { userId }) {
         checkAuth(userId)
-        const { stream, mimetype } = await file
+        const { createReadStream, mimetype } = await file
         if(!mimetype.startsWith('image/'))
             throw new Error('invalid file type')
         const filePath = './images/' + uniqueFilename('') + '.' + mimeTypes.extension(mimetype)
-        await new Promise((resolve, reject) => {
-            stream
-                .on('error', error => {
-                    if(stream.truncated)
-                        fs.unlink(filePath)
-                    reject(error)
-                })
+        await new Promise(resolve => {
+            createReadStream()
                 .pipe(fs.createWriteStream(filePath))
-                .on('error', reject)
-                .on('finish', () => resolve())
+                .on('error', () => { throw new Error('failed to upload file') })
+                .on('finish', resolve)
         })
         const user = await User.findById(userId)
         if(user._doc.profilePicturePath)
-            fs.unlink(user.profilePicturePath)
+            fs.unlink(user.profilePicturePath, err => {
+                if(err) throw err
+            })
         user.profilePicturePath = filePath
         user.save()
         return filePath
