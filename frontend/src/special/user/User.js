@@ -21,11 +21,13 @@ export default withRouter(props => {
                     <>
                         <TopPanel>
                             <Float>
-                                {context.user === user._id 
-                                    ? <ChangeProfilepicure user={user} />
-                                    : <Profilepicture user={user} size={90} />
-                                }
-                                <Typography variant='h3'>{user.name}</Typography>
+                                <div>
+                                    {context.user === user._id 
+                                        ? <ChangeProfilepicure user={user} />
+                                        : <Profilepicture user={user} size={90} />
+                                    }
+                                    <Typography variant='h3'>{user.name}</Typography>
+                                </div>
                                 <Topbutton 
                                     context={context} 
                                     userId={props.match.params.id} 

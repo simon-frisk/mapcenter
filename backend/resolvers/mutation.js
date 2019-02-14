@@ -8,6 +8,8 @@ const Course = require('../db/courseschema')
 const UserRecording = require('../db/userrecordingschema')
 const { checkAuth } = require('../util')
 const { generateOverviewMap } = require('../image')
+const Jimp = require('jimp')
+const streamToBuffer = require('stream-to-buffer')
 const fs = require('fs')
 
 module.exports = {
@@ -129,11 +131,19 @@ module.exports = {
         if(!mimetype.startsWith('image/'))
             throw new Error('invalid file type')
         const filePath = './images/' + uniqueFilename('') + '.' + mimeTypes.extension(mimetype)
+        
         await new Promise(resolve => {
-            createReadStream()
-                .pipe(fs.createWriteStream(filePath))
-                .on('error', () => { throw new Error('failed to upload file') })
-                .on('finish', resolve)
+            streamToBuffer(createReadStream(), (err, buffer) => {
+                if(err) throw new Error('failed to upload file')
+                Jimp.read(buffer)
+                        .then(image => {
+                            image
+                                .cover(200, 200)
+                                .writeAsync(filePath)
+                                .then(resolve)
+                        })
+                        .catch(err => { throw err })
+            })
         })
         const user = await User.findById(userId)
         if(user._doc.profilePicturePath)

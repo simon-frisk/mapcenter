@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import Error from '../../general/Error'
 import Loading from '../../general/Loading'
 
-const GETUSERQUERY = gql`
+export const GETUSERQUERY = gql`
     query GetUserQuery($id: ID!) {
         user(id: $id) {
             name
