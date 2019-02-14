@@ -3,7 +3,6 @@ const { ApolloServer } = require('apollo-server-express')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const compression = require('compression')
-const { imageRouter } = require('./image')
 const { connectToDb, checkToken } = require('./util')
 const typeDefs = require('./schema')
 const resolvers = require('./resolvers/main')
@@ -18,7 +17,6 @@ app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 app.use(checkToken)
 app.use('/images', express.static('images'))
-//app.use(imageRouter)
 
 new ApolloServer({
     typeDefs, 
@@ -28,9 +26,9 @@ new ApolloServer({
     }),
     uploads: {
         maxFileSize: 500000000,
-        maxFiles: 1
+        maxFiles: 100
     }
-}).applyMiddleware({app})
+}).applyMiddleware({ app })
 
 app.listen(4000, () => {
     console.log('server running')

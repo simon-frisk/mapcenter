@@ -16,7 +16,6 @@ const MUTATION = gql`
 export default () => {
     const [error, setError] = useState()
     const [eventCreated, setEventCreated] = useState(false)
-    const mapPaths = []
     
     async function onCreateEvent(name, courses, mutate) {
         setEventCreated(true)
@@ -25,39 +24,16 @@ export default () => {
             setEventCreated(false)
             return setError(validationErrors)
         }
-
-        Promise.all(courses.map(async course => {
-            const formData = new FormData()
-            formData.append('image', course.mapFile)
-            return await fetch('/api/map', {
-                method: 'PUT',
-                body: formData,
-                headers: new Headers({
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                })
-            })
-        }))
-            .then(responses => Promise.all(responses.map(response => response.json())))
-            .then(responses => {
-                responses.forEach(response => {
-                    mapPaths.push(response.image)
-                })
-            })
-            .then(() => {
-                mutate({variables: {
-                    eventInput: {
-                        name,
-                        courses: courses.map((course, index) => ({
-                            name: course.name,
-                            mapPath: mapPaths[index]
-                        }))
-                    }
-                }})
-            })
-            .catch(error => {
-                setEventCreated(false)
-                setError(error.message)
-            })
+        
+        mutate({variables: {
+            eventInput: {
+                name,
+                courses: courses.map(course => ({
+                    name: course.name,
+                    mapFile: course.mapFile
+                }))
+            }
+        }})
     }
 
     return (

@@ -66,7 +66,7 @@ module.exports = gql`
 
     input CourseInput {
         name: String!
-        mapPath: String!
+        mapFile: Upload!
     }
 
     input UserRecordingInput {

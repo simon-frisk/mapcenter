@@ -9,14 +9,14 @@ import { createUploadLink } from 'apollo-upload-client'
 export default new ApolloClient({
     link: ApolloLink.from([
         onError(({ graphQLErrors, networkError }) => {
-            if(graphQLErrors) {
-                graphQLErrors.forEach(({ message }) => {
-                    console.log('Graphql error: ' + message)
-                })
-            }
-            if(networkError)
-                console.log('Network error: ' + networkError)
-        }),
+            if (graphQLErrors)
+              graphQLErrors.map(({ message, locations, path }) =>
+                console.log(
+                  `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+                ),
+              );
+            if (networkError) console.log(`[Network error]: ${networkError}`);
+          }),
         setContext((_, { headers }) => {
             const token = localStorage.getItem('token')
             return {

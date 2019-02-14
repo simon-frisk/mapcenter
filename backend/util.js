@@ -1,6 +1,8 @@
 const fs = require('fs')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const uniqueFilename = require('unique-filename')
+const axios = require('axios')
 
 exports.readAllGqlFiles = folder => {
     const files = fs.readdirSync(__dirname + folder)
@@ -46,4 +48,28 @@ exports.checkToken = (req, _, next) => {
 exports.checkAuth = userId => {
     if(!userId)
         throw new Error('not authorized')
+}
+
+exports.generateOverviewMap = async function(lat, lon) {
+    const url = `https://open.mapquestapi.com/staticmap/v5/map?key=qabAXGPxCyZzOOQz0cIBJpxAgU53XGwM&center=${lat}, ${lon}&size=300, 200@2x&zoom=9&type=map&locations=${lat}, ${lon}&defaultMarker=marker-FFC107-sm`
+    
+    const response = await axios({
+        url,
+        method: 'GET',
+        responseType: 'stream'
+    })
+
+    const fileName = 'overview_' + uniqueFilename('') + '.jpg'
+    
+    const writeStream = fs.createWriteStream('./images/' + fileName)
+
+    response.data.pipe(writeStream)
+
+    return new Promise((resolve, reject) => {
+        writeStream.on('finish', resolve)
+        writeStream.on('error', reject)
+    })
+        .then(() => {
+            return 'images/' + fileName
+        })
 }

@@ -1,6 +1,10 @@
 module.exports = {
     Query: require('./query'),
-    Mutation: require('./mutation'),
+    Mutation: {
+        ...require('./usermutations'),
+        ...require('./eventmutations'),
+        ...require('./gpsmutations')
+    },
     Event: require('./event'),
     Course: require('./course'),
     User: require('./user'),
