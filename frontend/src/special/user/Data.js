@@ -41,7 +41,7 @@ export default ({ id, children, user }) =>
                 return <Loading />
             if(error)
                 return <Error />
-            const following = data.user.followers.map(user => user._id).includes(user)
-            return children(data.user, following, client)
+            const isFollowing = data.user.followers.map(user => user._id).includes(user)
+            return children(data.user, isFollowing, client)
         }}
     </Query>

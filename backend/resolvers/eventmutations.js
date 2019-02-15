@@ -92,6 +92,6 @@ module.exports = {
                 if(err) throw err
             })
         await Event.findByIdAndDelete(id)
-        return event
+        return true
     }
 }

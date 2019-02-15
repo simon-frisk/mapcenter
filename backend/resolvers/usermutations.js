@@ -1,6 +1,11 @@
 const User = require('../db/userschema')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
+const Jimp = require('jimp')
+const streamToBuffer = require('stream-to-buffer')
+const uniqueFilename = require('unique-filename')
+const mimeTypes = require('mime-types')
 const { checkAuth } = require('../util')
 
 module.exports = {

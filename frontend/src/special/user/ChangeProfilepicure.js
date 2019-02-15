@@ -27,7 +27,7 @@ export default ({ user }) => {
                 }
                 return (
                     <>
-                        <Profilepicture user={user} size={90} onClick={() => setEditModal(true)} />
+                        <Profilepicture user={user} size={100} onClick={() => setEditModal(true)} />
                         <Modal open={editModal} onClose={() => setEditModal(false)}>
                             <Modalbody>
                                 <Typography variant='h3'>Change profile picture</Typography>

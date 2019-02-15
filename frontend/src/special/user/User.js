@@ -1,49 +1,34 @@
 import React, { useContext } from 'react'
 import { withRouter } from 'react-router-dom'
-import Typography from '@material-ui/core/Typography'
-import styled from 'styled-components'
-import Float from '../../general/Float'
+import Grid from '@material-ui/core/Grid'
 import Layout from '../../general/Layout'
 import Context from '../../super/Context'
 import Data from './Data'
-import UserStats from './Userstats'
 import Recentmaps from './Recentmaps'
 import Topbutton from './Topbutton'
-import ChangeProfilepicure from './ChangeProfilepicure';
-import Profilepicture from '../../general/Profilepicture';
+import UserInfo from './Userinfo'
 
 export default withRouter(props => {
     const context = useContext(Context)
     return (
         <Layout>
             <Data id={props.match.params.id} user={context.user}>
-                {(user, following, client) =>
-                    <>
-                        <TopPanel>
-                            <Float>
-                                <div>
-                                    {context.user === user._id 
-                                        ? <ChangeProfilepicure user={user} />
-                                        : <Profilepicture user={user} size={90} />
-                                    }
-                                    <Typography variant='h3'>{user.name}</Typography>
-                                </div>
+                {(user, isFollowing, client) =>
+                    <Grid container spacing={16}>
+                        <Grid item sm={12} md={8} lg={6}>
+                            <div>
                                 <Topbutton 
                                     context={context} 
                                     userId={props.match.params.id} 
-                                    client={client} following={following}
+                                    client={client} following={isFollowing}
                                 />
-                            </Float>
-                            <UserStats user={user} />
-                        </TopPanel>
-                        <Recentmaps user={user} />
-                    </>
+                                <UserInfo user={user} context={context} />
+                            </div>
+                        </Grid>
+                        <Recentmaps user={user} />  
+                    </Grid>
                 }
             </Data>
         </Layout>
     )
 })
-
-const TopPanel = styled.div`
-    height: 40vh;
-`
