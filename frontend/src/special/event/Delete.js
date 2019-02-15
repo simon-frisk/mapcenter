@@ -1,9 +1,9 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
 import gql from 'graphql-tag'
 import Button from '@material-ui/core/Button'
 import Loading from '../../general/Loading'
-import { Redirect } from 'react-router-dom'
 
 const DELETEMUTATION = gql`
     mutation DeleteEvent($id: ID!) {
@@ -11,22 +11,22 @@ const DELETEMUTATION = gql`
     }
 `
 
-export default ({ event, user }) =>
+export default withRouter(({ event, context, history }) =>
     <>
-        {event.adminUser._id === user &&
+        {event.adminUser._id === context.user &&
             <Mutation mutation={DELETEMUTATION}>
-                {(mutate, {called, client, loading}) => {
+                {(mutate, {loading}) => {
                     if(loading)
                         return <Loading />
-                    if(!loading && called) {
-                        client.resetStore()
-                        return <Redirect to='/' />
-                    }
                     return (
                         <Button
                             variant='contained'
                             onClick={() => {
                                 mutate({variables: {id: event._id}})
+                                    .then(() => {
+                                        history.push('/')
+                                        context.apolloClient.resetStore()
+                                    })
                             }}
                         >Delete event</Button>
                     )
@@ -34,3 +34,4 @@ export default ({ event, user }) =>
             </Mutation>
         }
     </>
+)

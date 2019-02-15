@@ -3,13 +3,16 @@ import { BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './theme'
 import PrivateRoute from './PrivateRoute'
 import Publicroute from './Publicroute'
 import Context from './Context'
-import theme from './theme'
+import muitheme from './theme'
 import Navbar from '../general/navbar/Navbar'
 import Loading from '../general/Loading'
 import Errorboundary from './Errorboundary'
+import Client from './Apollo'
 
 export default () => {
     const [decodedToken, setDecodedToken] = useState()
@@ -31,9 +34,14 @@ export default () => {
 
     return (
         <BrowserRouter>
-            <MuiThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
+            <MuiThemeProvider theme={muitheme}>
                 <CssBaseline />
-                <Context.Provider value={{user: decodedToken ? decodedToken.userId : null, setAuthUser}}>
+                <Context.Provider value={{
+                    user: decodedToken ? decodedToken.userId : null,
+                    setAuthUser,
+                    apolloClient: Client
+                }}>
                     <Navbar />
                     <Errorboundary>
                         <Suspense fallback={<Loading />}>
@@ -71,6 +79,7 @@ export default () => {
                     </Errorboundary>
                 </Context.Provider>
             </MuiThemeProvider>
+            </ThemeProvider>
         </BrowserRouter>
     )
 }

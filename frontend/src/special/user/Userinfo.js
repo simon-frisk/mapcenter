@@ -8,7 +8,7 @@ import Level from '../../general/Level'
 import Userlist from './Userlist'
 import Profilepicture from '../../general/Profilepicture'
 
-export default ({ user, context }) =>
+export default ({ user, context, children }) =>
     <Container>
         <Typography variant='h4'>{ user.name }</Typography>
         {context.user === user._id 
@@ -23,6 +23,9 @@ export default ({ user, context }) =>
                 <Userlist users={user.following} mode={'Following'} />
             </Button>
         </Row>
+        <Row>
+            { children }
+        </Row>
         <Level>
             <DirectionsRun />
             <Typography variant='h6'>
@@ -35,7 +38,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 5%;
     > * {
         margin-bottom: 10px;
@@ -45,5 +47,5 @@ const Container = styled.div`
 const Row = styled.div`
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
 `

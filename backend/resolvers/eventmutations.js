@@ -1,6 +1,7 @@
 const User = require('../db/userschema')
 const Event = require('../db/eventschema')
 const Course = require('../db/courseschema')
+const UserRecording = require('../db/userrecordingschema')
 const fs = require('fs')
 const Jimp = require('jimp')
 const streamToBuffer = require('stream-to-buffer')

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import Delete from './Delete'
 import styled from 'styled-components'
 
-export default ({ event, user }) => {
+export default ({ event, context }) => {
     
     const users = event.courses.reduce((users, course) => {
         const courseUsers = course.userRecordings.map(userRecording => ({
@@ -38,7 +38,7 @@ export default ({ event, user }) => {
                                 style={{color: 'black'}}
                             >{event.adminUser.name}</Link>
                         </Level>
-                        <Delete event={event} user={user} />
+                        <Delete event={event} context={context} />
                     </Typography>
                 </div>
             </Grid>

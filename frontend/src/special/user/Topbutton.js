@@ -1,6 +1,7 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 
 const FOLLOWUSERMUTATION = gql`
@@ -15,15 +16,16 @@ const UNFOLLOWMUTATION = gql`
     }
 `
 
-export default ({ context, userId, client, following }) =>
+export default withRouter(({ context, userId, following }) =>
     <>
     {
         context.user === userId ?
             <Button
                 variant='contained'
+                style={{ width: '100%' }}
                 onClick={() => {
                     context.setAuthUser()
-                    client.resetStore()
+                    context.apolloClient.resetStore()
                 }}
             >
                 Log out
@@ -34,13 +36,16 @@ export default ({ context, userId, client, following }) =>
                 variables={{
                     id: userId
                 }}
+                onCompleted={() => {
+                    context.apolloClient.resetStore()
+
+                }}
             >
-                {(mutate, { loading, called, client }) => {
-                    if(!loading && called)
-                        client.resetStore()
+                {(mutate, { loading }) => {
                     return (
                         <Button
                             variant='contained'
+                            style={{ width: '100%' }}
                             color={!following ? 'secondary' : 'default'}
                             disabled={loading}
                             onClick={mutate}
@@ -52,3 +57,4 @@ export default ({ context, userId, client, following }) =>
             </Mutation>
         }
     </>
+)

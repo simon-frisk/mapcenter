@@ -1,43 +1,34 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Context from '../../super/Context'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import AppBar from '@material-ui/core/AppBar'
-import ToolBar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Hidden from '@material-ui/core/Hidden'
-import ToolbarButtons from './ToolbarButtons'
-import Menu from './Menu'
+import styled from 'styled-components'
+import Links from './Links'
+
+const Navbar = styled.div`
+    background-color: ${ props => props.theme.primary }
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 5px 20px 0 grey;
+    padding: 0 30px;
+    height: 70px;
+`
+
+const Header = styled(Link)`
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    height: 70px;
+    line-height: 70px;
+`
 
 export default () => {
     const context = React.useContext(Context)
-    const [menuAnchor, setMenuAnchor] = React.useState(null)
 
     return (
-        <AppBar color='primary' position='static'>
-            <ToolBar>
-                <Typography
-                    variant='h5'
-                    color='inherit'
-                    component={Link}
-                    to='/'
-                    style={{textDecoration: 'none', flexGrow: 1}}
-                >
-                    {process.env.REACT_APP_APP_NAME}
-                </Typography>
-
-                <Hidden xsDown>
-                    <ToolbarButtons user={context.user} />
-                </Hidden>
-                <Hidden smUp>
-                    <IconButton color='inherit' onClick={e => setMenuAnchor(e.currentTarget)}>
-                        <MenuIcon />
-                    </IconButton>
-                </Hidden>
-
-                <Menu user={context.user} menuAnchor={menuAnchor} setMenuAnchor={setMenuAnchor} />
-            </ToolBar>
-        </AppBar>
+        <Navbar>
+            <Header to='/'>{ process.env.REACT_APP_APP_NAME }</Header>
+            <Links context={context} />
+        </Navbar>
     )
 }

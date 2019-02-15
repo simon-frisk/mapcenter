@@ -13,3 +13,9 @@ export default createMuiTheme({
         useNextVariants: true,
     }
 })
+
+export const theme = {
+    primary: '#424444',
+    primaryDark: '#212222',
+    secondary: '#FFC107'
+}

@@ -4,6 +4,7 @@ import App from './super/App'
 import './super/index.css'
 import * as serviceWorker from './super/serviceWorker'
 import Client from './super/Apollo'
+import 'typeface-roboto'
 import { ApolloProvider } from 'react-apollo'
 
 const Element = () => (

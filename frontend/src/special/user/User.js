@@ -15,15 +15,14 @@ export default withRouter(props => {
             <Data id={props.match.params.id} user={context.user}>
                 {(user, isFollowing, client) =>
                     <Grid container spacing={16}>
-                        <Grid item sm={12} md={8} lg={6}>
-                            <div>
+                        <Grid item sm={12} md={4}>
+                            <UserInfo user={user} context={context}>
                                 <Topbutton 
                                     context={context} 
                                     userId={props.match.params.id} 
                                     client={client} following={isFollowing}
                                 />
-                                <UserInfo user={user} context={context} />
-                            </div>
+                            </UserInfo>
                         </Grid>
                         <Recentmaps user={user} />  
                     </Grid>
