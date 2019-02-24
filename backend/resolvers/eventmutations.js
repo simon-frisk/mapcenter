@@ -40,13 +40,14 @@ module.exports = {
 
                                 const width = thumb.bitmap.width
                                 const height = thumb.bitmap.height
-                                const thumbWidth = width > 400 ? 400 : width
-                                const thumbHeight = height > 250 ? 250 : height
+                                const thumbWidth = width > 800 ? 800 : width
+                                const thumbHeight = height > 500 ? 500 : height
                                 const thumbX = Math.floor((width - thumbWidth) / 2)
                                 const thumbY = Math.floor((height - thumbHeight) / 2)
                     
                                 const thumbPromise = thumb
                                     .crop(thumbX, thumbY, thumbWidth, thumbHeight)
+                                    .scale(0.4)
                                     .writeAsync('./images/thumb_' + fileName)
 
                                 Promise.all([ mapPromise, thumbPromise ]).then(resolve)

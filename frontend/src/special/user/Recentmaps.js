@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import Card from '../../general/Card'
+import Card from '../../general/Mapcard'
 
 export default ({ user }) =>
     <>
@@ -12,7 +12,8 @@ export default ({ user }) =>
                         name={`${course.event.name} - ${course.name}`}
                         image={'/api/' + thumbPath}
                         redirectTo={`/map/${course.event._id}/${course._id}`}
-                        />
+                        width='100%'
+                    />
                 </Grid>
             )
         })}

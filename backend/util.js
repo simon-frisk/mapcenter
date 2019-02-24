@@ -51,7 +51,7 @@ exports.checkAuth = userId => {
 }
 
 exports.generateOverviewMap = async function(lat, lon) {
-    const url = `https://open.mapquestapi.com/staticmap/v5/map?key=qabAXGPxCyZzOOQz0cIBJpxAgU53XGwM&center=${lat}, ${lon}&size=300, 200@2x&zoom=9&type=map&locations=${lat}, ${lon}&defaultMarker=marker-FFC107-sm`
+    const url = `https://open.mapquestapi.com/staticmap/v5/map?key=qabAXGPxCyZzOOQz0cIBJpxAgU53XGwM&center=${lat}, ${lon}&size=300, 200@2x&zoom=7&type=map&locations=${lat}, ${lon}&defaultMarker=marker-FFC107-sm`
     
     const response = await axios({
         url,

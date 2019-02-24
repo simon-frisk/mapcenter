@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Context from '../../super/Context'
 import Layout from '../../general/Layout'
-import MyCard from '../../general/Card'
+import MyCard from '../../general/Mapcard'
 import Data from './Data'
 import Eventinfo from './Eventinfo'
 
@@ -26,6 +26,7 @@ export default props => {
                                         redirectTo={`/map/${props.match.params.id}/${course._id}`}
                                         image={'/api/' + thumbPath}
                                         name={course.name}
+                                        width='100%'
                                     />
                                 </Grid>
                             )

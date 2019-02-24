@@ -1,19 +1,45 @@
 import React from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Grid from '@material-ui/core/Grid'
+import styled, {keyframes} from 'styled-components'
 
-export default function() {
+export default () => {
+    const [show, setShow] = React.useState(false)
+
+    React.useEffect(() => {
+        setTimeout(1000, () => {
+            setShow(true)
+        })
+    }, [])
+
+    if(!show) return ''
+
     return (
-        <Grid
-            container
-            justify='center'
-            alignItems='center'
-            width='100%'
-            height='100%'
-        >
-            <Grid item>
-                <CircularProgress style={{marginTop: '20px'}} />
-            </Grid>
-        </Grid>
+        <Flex>
+            <Spinner />
+        </Flex>
     )
 }
+
+const rotate = keyframes`
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+`
+
+const Flex = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const Spinner = styled.span`
+    border: 5px solid lightgrey;
+    border-top: 5px solid black;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    animation: ${rotate} 1.5s ease infinite alternate;
+`

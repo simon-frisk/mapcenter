@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 import gql from 'graphql-tag'
 import { Mutation } from 'react-apollo'
 import Context from '../../../super/Context'
-import Hero from '../../../general/Hero'
+import TopHero from '../../../general/TopHero'
 import background from '../bg.png'
 
 const MUTATION = gql`
@@ -52,7 +52,7 @@ export default function() {
     }
 
     return (
-        <Hero background={background}>
+        <TopHero background={background} height='100vh'>
             <Card>
                 <Mutation mutation={MUTATION} variables={{ userInput: {name, email, password}}}>
                     {(signUp, { called, loading, data, error: mutationError }) => {
@@ -86,6 +86,6 @@ export default function() {
                     }}
                 </Mutation>
             </Card>
-        </Hero>
+        </TopHero>
     )
 }

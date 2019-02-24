@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import CardActions from '@material-ui/core/CardActions'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Hero from '../../../general/Hero'
+import TopHero from '../../../general/TopHero'
 import background from '../bg.png'
 
 const SIGNIN_QUERY = gql`
@@ -42,7 +42,7 @@ export default function() {
     }
 
     return (
-        <Hero background={background}>
+        <TopHero background={background} height='100vh'>
             <ApolloConsumer>
                 {client => 
                     <form onSubmit={onSubmit(client)}>
@@ -64,6 +64,6 @@ export default function() {
                     </form>
                 }
             </ApolloConsumer>
-        </Hero>
+        </TopHero>
     )
 }

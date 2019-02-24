@@ -7,10 +7,11 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Level from '../../general/Level'
 import ProfilePicture from '../../general/Profilepicture'
+import { Slide, SlideItem } from '../../general/Slide'
 
-export default ({ data }) => 
+export default ({ data }) =>
     <div style={{ marginTop: '20px' }}>
-        <Typography variant='h4'>Users</Typography>
+        <h2 style={{fontSize: '35px', margin: '10px'}}>Users</h2>
         <Grid container spacing={16}>
             {data && data.topUsers.map(user => {
                 return (
