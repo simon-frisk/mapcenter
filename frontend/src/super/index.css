@@ -4,3 +4,13 @@ body {
     padding: 0px;
     font-family: Roboto;
 }
+
+*::-webkit-scrollbar {
+    width: 1em;
+}
+*::-webkit-scrollbar-track {
+    background: #EEE;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+}

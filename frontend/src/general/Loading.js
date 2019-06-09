@@ -1,13 +1,14 @@
 import React from 'react'
-import styled, {keyframes} from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export default () => {
     const [show, setShow] = React.useState(false)
 
     React.useEffect(() => {
-        setTimeout(1000, () => {
+        const timeout = setTimeout(() => {
             setShow(true)
-        })
+        }, 1000)
+        return () => clearTimeout(timeout)
     }, [])
 
     if(!show) return ''

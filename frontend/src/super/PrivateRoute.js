@@ -7,8 +7,7 @@ export default ({component: Component, ...rest}) => {
     return (
         <Route {...rest} render={props => (
             context.user
-            ? 
-                <Component {...props} />
+            ? <Component {...props} />
             : <Redirect to='/signin' />
         )} />
     )

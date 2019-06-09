@@ -26,16 +26,14 @@ const Links = styled.div`
     display: flex;
     margin: 0 30px;
     align-items: center;
-    & > * {
-        height: 60px;
-        line-height: 60px;
-    }
 `
 
 const LinkItem = styled(Link)`
     color: white;
     text-decoration: none;
     padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
     @media (max-width: 800px) {
         display: none;
     }
@@ -45,6 +43,11 @@ const LinkItem = styled(Link)`
 `
 
 const Icon = styled.span`
+    :hover {
+        background-color: ${props => props.theme.primaryDark}
+    }
+    padding: 10px;
+    border-radius: 10px;
     @media (min-width: 801px) {
         display: none;
     }
