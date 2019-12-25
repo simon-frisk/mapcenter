@@ -83,7 +83,6 @@ module.exports = gql`
         time: Int!
     }
 
-
     input UserInput {
         name: String!
         email: String!
